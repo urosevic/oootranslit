@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE toolbar:toolbar PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "toolbar.dtd">
+<toolbar:toolbar xmlns:toolbar="http://openoffice.org/2001/toolbar" xmlns:xlink="http://www.w3.org/1999/xlink" toolbar:uiname="OOoTranslit">
+ <toolbar:toolbaritem xlink:href="vnd.sun.star.script:oootranslit.fncTranslit.RunTranslit?language=Basic&amp;location=application" toolbar:text="RunTranslit"/>
+ <toolbar:toolbaritem xlink:href="vnd.sun.star.script:oootranslit.fncTranslit.trACL?language=Basic&amp;location=application" toolbar:text="trACL"/>
+ <toolbar:toolbaritem xlink:href="vnd.sun.star.script:oootranslit.fncTranslit.trALC?language=Basic&amp;location=application" toolbar:text="trALC"/>
+ <toolbar:toolbaritem xlink:href="vnd.sun.star.script:oootranslit.fncTranslit.trSCL?language=Basic&amp;location=application" toolbar:text="trSCL"/>
+ <toolbar:toolbaritem xlink:href="vnd.sun.star.script:oootranslit.fncTranslit.trSLC?language=Basic&amp;location=application" toolbar:text="trSLC"/>
+</toolbar:toolbar>

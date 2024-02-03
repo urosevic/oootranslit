@@ -1,0 +1,3 @@
+*.oxt
+*.log
+dist/*.oxt

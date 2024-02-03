@@ -1,0 +1,4 @@
+OOoTranslit dodatak za dvosmerno preslovljavanje
+između ćiriličnog i latiničnog pisma.
+
+Copyleft (ɔ) 2005-2024 Aleksandar Urošević, TechWebUX doo Kragujevac

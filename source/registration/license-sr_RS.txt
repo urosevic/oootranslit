@@ -1,0 +1,15 @@
+    OOoTranslit - preslovljavanje između ćiriličnog i latiničnog teksta
+    Autorska prava: Copyleft (ɔ) 2005-2024 Aleksandar Urošević, TechWebUX doo Kragujevac
+
+    Ovaj program je slobodni softver. Možete ga raspodeliti i/ili
+    menjati pod odredbama GNU-ove opšte javne licence koju je objavila
+    Zadužbina za slobodni softver, i to ili verzije 3 ove licence, ili
+    (po vašem izboru) bilo koje sledeće verzije.
+
+    Ovaj program se raspodeljuje u nameri da bude koristan, ali BEZ
+    IKAKVE GARANCIJE, čak i bez implicitne garancije KOMERCIJALNE
+    VREDNOSTI ili ISPUNJAVANJA ODREĐENE POTREBE. Pogledajte GNU-ovu opštu
+    javnu licencu za više detalja.
+
+    Trebalo bi da uz ovaj program primite i primerak GNU-ove opšte javne
+    licence. Ako to nije slučaj, pogledajte <https://www.gnu.org/licenses/>.

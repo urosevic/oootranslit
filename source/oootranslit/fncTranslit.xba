@@ -1,0 +1,1006 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="fncTranslit" script:language="StarBasic">&apos; *****  BASIC  *****
+&apos;
+&apos; Naziv:     OOoTranslit (od OpenOffice.org Transliteration)
+&apos; Svrha:     Basic makro za dvosmerno preslovljavanje latinice u ćirilicu
+&apos;            u Writer i Calc programima kancelarijskih paketa LibreOffice i Apache OpenOffice
+&apos; Verzija:   24.02.0
+&apos; Autor:     Aleksandar Urošević &lt;urke.kg@gmail.com&gt;
+&apos; Prilagači: Goran Rakić &lt;grakic@devbase.net&gt;
+&apos;            Branislav Jovanović &lt;fangorn@eunet.yu&gt;
+&apos; URL:       https://urosevic.net/oootranslit
+&apos;
+&apos; Dnevnik promena:
+&apos; 24.02.0 (03.02.2024) [urke]
+&apos; * makro: doda ispravka nepotpuno preslovljenih stranih termina
+&apos; * makro: dodato preslovljavanje latiničnog &quot;dj&quot; u ćirilično &quot;đ&quot;
+&apos; * makro: unapređena ispravka parova DJ, DŽ i NJ
+&apos; * dialog: preimenovan &quot;novinarski&quot; raspored u &quot;Tanjug&quot;
+&apos; * dialog: dimenzija dialoga promenjna na proporciju 4:3
+&apos;
+&apos; 23.10.0 (28.10.2023) [urke]
+&apos;  * paket: unapređeno korisničko iskustvo
+&apos;  * paket: unapređen prevod sučelja
+&apos;  * paket: podrška za LibreOffice 7.6 i Apache OpenOffice 4.1.14
+&apos;
+&apos; 0.5.0 (15.02.2021) [urke]
+&apos;  * paket: promenjen identifier iz `rs.fsn.oootranslit.serbian.addon` u `urosevic.oootranslit`
+&apos;  * paket: podrška za LibreOffice 7.1 i Apache OpenOffice 4.1.9
+&apos;  * paket: modernizovano korisničko sučelje i ikonice
+&apos;  * makro: standardizacija i optimizacija izvornog kôda
+&apos;  * makro: otvaranje zvaničnog sajta OOoTranslit u podrazumevanom pregledaču na sistemu
+&apos;
+&apos; 0.4.1 (24.02.2012) [urke]
+&apos;  * makro: otklonjen problem sa korekcijom NJ i LJ slučajeva u Calc-u iz latinice u ćirilicu u LibreOffice 3.5
+&apos;
+&apos; 0.4.0 (27.01.2010) [urke]
+&apos;  * makro: dodata ispravka neželjenog preslovljavanja para „nj“ u ćirilicu (vanjezični i odžuboriti)
+&apos;
+&apos; 0.4.0 RC2 (16.05.2009) [urke]
+&apos;  * makro: rešen problem preslovljavanja izbora u frejmovima
+&apos;  * makro: dodata ispravka neželjenog preslovljavanja para „nj“ u ćirilicu
+&apos;           (tanjug, konjukcija, injekcija, nadživeti i drugo)
+&apos;
+&apos; 0.4.0 RC1 (22.05.2008) [urke]
+&apos;  * paket: objavljivanje na OpenOffice.org Extensions
+&apos;
+&apos; 0.4.0 beta 5 (04.03.2008) [urke]
+&apos;  * paket: optimizovana instalacija uklanjanjem nepotrebnih modula i resen
+&apos;           problem neprilagodjenog naziva trake alatki u Calc-u
+&apos;  * dialog: azurirana lokalizacija dijaloga (cirilica i latinica)
+&apos;  * dialog: resen problem neaktivnog polja za posetu veb stranice programa
+&apos;  * makro: dodatno preslovljavanje novinarskog rasporeda u i iz cirilice i latinice
+&apos;           i potrebna je provera funkcionalnosti na YUSCII i CIRSCII rasporede
+&apos;           (poručio Milobit za Nezavisno drustvo novinara Vojvodine)
+&apos;
+&apos; 0.4.0 beta 4 (22.01.2008) [goran]
+&apos;  * dialog: rešen problem modaliteta bez dugmeta za zatvaranje
+&apos;
+&apos; 0.4.0 beta 3 (20.01.2008) [urke]
+&apos;  * paket: formiran samoinstalirajući AddOn za makro, toolbar za Writer i Calc
+&apos;           kao i ikonice za toolbar
+&apos;  * paket: od ovog izdanja OOoTranslit je objavljen pod GPLv3
+&apos;
+&apos; 0.4.0 beta (20.01.2008) [urke, goran]
+&apos;  * dialog: preuredjen i pojednostavljen dijalog
+&apos;
+&apos; 0.4.0 alpha 2 (19.01.2008) [goran]
+&apos;  * makro: ispravljeno preslovljavanje odabranog teksta (preslovljavanje vise
+&apos;           preslovljavanje sada radi).
+&apos;  * makro: iskljucena popravka lj, nj i dz u celom tekstu kad se preslovljava samo
+&apos;           odobrani tekst
+&apos;  * makro: implementirana podrska za preslovljavanje u Calc-u, reorganizovane funkcije
+&apos;
+&apos; 0.4.0 alpha (28.07.2007) [urke]
+&apos;  * makro: funkcije i dijalog premesteni u oootranslit riznicu
+&apos;  * dialog: reorganizacija dijaloga
+&apos;
+&apos; 0.3.8c (26.01.2007) [urke]
+&apos;  * makro: dodato preslovljavanje za CIRSCII (gresku prijavio Ivan Cukic)
+&apos;
+&apos; 0.3.8b (05.09.2005) [urke]
+&apos;  * makro: zaostalo neispravljeno presovljavanje cirilicnog Dz u DZ (bug report: Igor Jagec)
+&apos;  * makro: dodata procedura za prepoznavanje da li se Dz, Lj i Nj nalaze u reci sa svim
+&apos;           velikim slovima da bi bili prevedeni iz cirilice u DZ, LJ i NJ ili treba da
+&apos;           ostanu kao Dz, Lj i Nj
+&apos;
+&apos; 0.3.8 (04.09.2005) [urke]
+&apos;  * makro: ispravljeno presovljavanje cirilicnih Lj u LJ i Nj u NJ (bug report: Igor Jagec)
+&apos;
+&apos; 0.3.7 (17.05.2005) [urke]
+&apos;  * makro: ispravljena lSetCount greška tipa
+&apos;
+&apos; 0.3.6 (05.05.2005) [urke]
+&apos;  * makro: ispravljena greska nepreslovljavanja varijante latinicnih Lj, Nj i Dz
+&apos;           u cirilicne (gresku prijavio Časlav Ilić)
+&apos;
+&apos; 0.3.5 (27.05.2005) [urke]
+&apos;  * makro: ispravljena greska nepreslovljavanja latinicnih lj, nj i dz
+&apos;           u cirilicne lj, nj i dz
+&apos;  * makro: dodato preslovljavanje velikih Lj, Nj i Dz u cirilicu kao i
+&apos;           varijante LJ, NJ i DZ
+&apos;  * makroi premesteni u OOoTranslit_VERZIJA.sxw dokument
+&apos;  * paket: dodato detaljno uputstvo za instalaciju makroa Install.sxw
+&apos;
+&apos; 0.3.4 (25.04.2005) [urke]
+&apos;  * dijalog: resen problem modaliteta tako da sada moze da se selektuje
+&apos;             tekst dokje dijalog otvoren, a onda preslovljava izabrani tekst.
+&apos;
+&apos; 0.3.3b (18.04.2005) [brane]
+&apos;  * dijalog: ispravljen &quot;Tab Order&quot; u grupi &quot;U&quot; dugmadi zbog kojeg je bilo
+&apos;             nemoguce izabrati bilo sta sem cirilice (tj. makro je uvek mislio da
+&apos;             je izabrana cirilica jer je to prva provera)
+&apos;  * makro: ispravljeno ime matrice za YUSCII (ysl a ne ysc) zbog koje je
+&apos;           bilo nemoguce presloviti iz YUSCII-a
+&apos;
+&apos; 0.3.3 (15.04.2005) [urke]
+&apos;  * promenjen naziv makroa iz 3oTrans u OOoTranslit
+&apos;  * resen problem greske &quot;Action not supported. Invalid Procedure call.&quot;
+&apos;    pri prvom pozivanju dijaloga preloadovanjem Standard biblioteke modula
+&apos;
+&apos; 0.3.2b (14.04.2005) [urke]
+&apos;  * uprošćeno definisanje nizova za slova
+&apos;  * razdvojeno inicijalno definisanje slova od funkcija
+&apos;  * omoguceno pozivanje preslovljavanja bez otvaranja dijaloga
+&apos;  * preuredjen dijalog i dodata opcija za zatvaranje dijaloga posle jednog
+&apos;    preslovljavanja
+&apos;  * sklonjeno centriranje dijaloga
+&apos;  * sklonjena ispravka pogresno preslovljanih reci sa dijaloga (mogucnost
+&apos;    razdvajanja makroa)
+&apos;
+&apos; 0.3.1 (08.04.2005) [urke]
+&apos;  * prebačen izbor ulaznog i izlaznog pisma iz padajućih lista u opcionu
+&apos;    dugmad u dve grupe pošto se tako brže vrši izbor
+&apos;  * podrazumevana je transliteracija latinice u ćirilicu (default postavke
+&apos;    opcionih dugmadi)
+&apos;  * dodato centriranje dijaloga na ekranu
+&apos;  * razdvojena funkcija deTranslit u novi modul
+&apos;
+&apos; 0.3.0 (07.04.2005) [urke]
+&apos;  * Dodata opcija transliteracije samo selektovanog teksta
+&apos;  * Prečišćen kod (uklonjene nepotrebne funkcije)
+&apos;
+&apos; 0.2.2 (05.04.2005) [urke]
+&apos;  * Za potrebe GNUzilla ćirilizacije napravljena funkcija deTranlit za vraćanje
+&apos;    nepotrebno transliterovanih reči u ispravan oblik (latinica/ćirilica)
+&apos;  * Dodato na dijalog dugme za fiksiranje teksta u skladu sa deTranlit funkcijom
+&apos;  * Sređivanje poruka u dijalogu
+&apos;  * Posle izvršene transliteracije ne zatvara se dijalog (potreban deTranlit)
+&apos;
+&apos; 0.2.1 (31.03.2005) [brane]
+&apos;  * Dodat YUSCII za transliteraciju
+&apos;  * Prebačen izbor transliteracije sa opcija na padajuće liste
+&apos;
+&apos; 0.2.0 (23.03.2005) [urke]
+&apos;  * Prebačeno ćirilično pismo u Chr$ UNICODE entitete
+&apos;  * Prvo javno izdanje
+&apos;
+&apos; 0.1.0 (18.03.2005) [urke]
+&apos;  * Prerađen algoritam za Search&amp;Replace u skladu sa OOo VB API-jem
+&apos;
+&apos; 0.0.2 (23.02.2005) [urke]
+&apos;  * Napravljen dijalog za izbor vrste transliteracije
+&apos;
+&apos; 0.0.1 (20.02.2005) [urke]
+&apos;  * Prva probna verzija bez dijaloga sa dosta krešaka u kodu (učenje OOo VB)
+&apos;
+&apos; TODO:
+&apos;  * Ne transliterovati u cirilicu URL adrese (@, http, ftp) kao i reci
+&apos;    koje sadrze engleske karaktere (QWYX) - nezadovoljavajuce resenje je deTranslit
+&apos;  * preslovljavanje izabranog teksta i u frejmovima
+&apos;
+&apos; **************************************************************************
+
+
+&apos; ************************************************************************
+Option Explicit
+Dim oDlg As Object
+Dim oListener as Object
+Dim cirStr, latStr, yslStr, cscStr, nolStr, strIZ, strU, djStrIZ, djStrU As Variant
+Dim ldbSStr, ldbCStr, smgStr as Variant
+Dim nNumElements As Integer
+Dim n, m as Long
+Dim version As String
+&apos; ************************************************************************
+
+&apos; Funkcija za inicijalno definisanje nizova slova za preslovljavanje
+Function Init()
+    &apos; ćirilična velika
+    cirStr() = Array(_
+        Chr$(1026), Chr$(1026), _
+        Chr$(1039), Chr$(1033), Chr$(1034), _
+        Chr$(1039), Chr$(1033), Chr$(1034), Chr$(1026), Chr$(1040), _
+        Chr$(1041), Chr$(1042), Chr$(1043), Chr$(1044), Chr$(1045), _
+        Chr$(1046), Chr$(1047), Chr$(1048), Chr$(1032), Chr$(1050), _
+        Chr$(1051), Chr$(1052), Chr$(1053), Chr$(1054), Chr$(1055), _
+        Chr$(1056), Chr$(1057), Chr$(1058), Chr$(1035), Chr$(1059), _
+        Chr$(1060), Chr$(1061), Chr$(1062), Chr$(1063), Chr$(1064) _
+    )
+    &apos; ćirilična mala
+    Dim tmpStr as Variant
+    tmpStr() = Array(_
+        Chr$(1106), _
+        Chr$(1119), Chr$(1113), Chr$(1114), Chr$(1106), Chr$(1072), _
+        Chr$(1073), Chr$(1074), Chr$(1075), Chr$(1076), Chr$(1077), _
+        Chr$(1078), Chr$(1079), Chr$(1080), Chr$(1112), Chr$(1082), _
+        Chr$(1083), Chr$(1084), Chr$(1085), Chr$(1086), Chr$(1087), _
+        Chr$(1088), Chr$(1089), Chr$(1090), Chr$(1115), Chr$(1091), _
+        Chr$(1092), Chr$(1093), Chr$(1094), Chr$(1095), Chr$(1096) _
+    )
+    &apos; Spajanje velikih i malih ćiriličnih slova u jedan niz
+    Array1_AppendElement(cirStr, tmpStr)
+
+    &apos; latinična velika
+    latStr() = Array(_
+        &quot;DJ&quot;, &quot;Dj&quot;, _
+        &quot;D&quot; &amp; Chr$(382), &quot;Lj&quot;, &quot;Nj&quot;, _
+        &quot;D&quot; &amp; Chr$(381), &quot;LJ&quot;, &quot;NJ&quot;, Chr$(272), &quot;A&quot;, _
+        &quot;B&quot;, &quot;V&quot;, &quot;G&quot;, &quot;D&quot;, &quot;E&quot;, _
+        Chr$(381), &quot;Z&quot;, &quot;I&quot;, &quot;J&quot;, &quot;K&quot;, _
+        &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, &quot;P&quot;, _
+        &quot;R&quot;, &quot;S&quot;, &quot;T&quot;, Chr$(262), &quot;U&quot;, _
+        &quot;F&quot;, &quot;H&quot;, &quot;C&quot;, Chr$(268), Chr$(352) _
+    )
+    &apos; latinična mala
+    ReDim tmpStr as Variant
+    tmpStr() = Array(_
+        &quot;dj&quot;, _
+        &quot;d&quot; &amp; Chr$(382), &quot;lj&quot;, &quot;nj&quot;, Chr$(273), &quot;a&quot;, _
+        &quot;b&quot;, &quot;v&quot;, &quot;g&quot;, &quot;d&quot;, &quot;e&quot;, _
+        Chr$(382), &quot;z&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, _
+        &quot;l&quot;, &quot;m&quot;, &quot;n&quot;, &quot;o&quot;, &quot;p&quot;, _
+        &quot;r&quot;, &quot;s&quot;, &quot;t&quot;, Chr$(263), &quot;u&quot;, _
+        &quot;f&quot;, &quot;h&quot;, &quot;c&quot;, Chr$(269), Chr$(353) _
+    )
+    &apos; Spajanje velikih i malih latiničnih slova u jedan niz
+    Array1_AppendElement(latStr, tmpStr)
+
+    &apos; yuscii latinica velika
+    yslStr() = Array(_
+        &quot;\&quot;,  &quot;\&quot;, _
+        &quot;D&quot; &amp; &quot;@&quot;, &quot;LJ&quot;, &quot;NJ&quot;, _
+        &quot;D&quot; &amp; &quot;`&quot;, &quot;Lj&quot;, &quot;Nj&quot;, &quot;\&quot;, &quot;A&quot;, _
+        &quot;B&quot;, &quot;V&quot;, &quot;G&quot;, &quot;D&quot;, &quot;E&quot;, _
+        &quot;@&quot;, &quot;Z&quot;, &quot;I&quot;, &quot;J&quot;, &quot;K&quot;, _
+        &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, &quot;P&quot;, _
+        &quot;R&quot;, &quot;S&quot;, &quot;T&quot;, &quot;]&quot;, &quot;U&quot;, _
+        &quot;F&quot;, &quot;H&quot;, &quot;C&quot;, &quot;^&quot;, &quot;[&quot; _
+    )
+    &apos; yuscii latinica mala
+    ReDim tmpStr as Variant
+    tmpStr() = Array(_
+        &quot;|&quot;, _
+        &quot;d&quot; &amp; &quot;`&quot;, &quot;lj&quot;, &quot;nj&quot;, &quot;|&quot;, &quot;a&quot;, _
+        &quot;b&quot;, &quot;v&quot;, &quot;g&quot;, &quot;d&quot;, &quot;e&quot;, _
+        &quot;`&quot;, &quot;z&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, _
+        &quot;l&quot;, &quot;m&quot;, &quot;n&quot;, &quot;o&quot;, &quot;p&quot;, _
+        &quot;r&quot;, &quot;s&quot;, &quot;t&quot;, &quot;}&quot;, &quot;u&quot;, _
+        &quot;f&quot;, &quot;h&quot;, &quot;c&quot;, &quot;~&quot;, &quot;{&quot; _
+    )
+    &apos; Spajanje velikih i malih yuscii latiničnih slova u jedan niz
+    Array1_AppendElement(yslStr, tmpStr)
+
+    &apos; yuscii ćirilica velika
+    cscStr() = Array(_
+        &quot;\&quot;,  &quot;\&quot;, _
+        &quot;X&quot;, &quot;Q&quot;, &quot;W&quot;, _
+        &quot;X&quot;, &quot;Q&quot;, &quot;W&quot;, &quot;\&quot;, &quot;A&quot;, _
+        &quot;B&quot;, &quot;V&quot;, &quot;G&quot;, &quot;D&quot;, &quot;E&quot;, _
+        &quot;@&quot;, &quot;Z&quot;, &quot;I&quot;, &quot;J&quot;, &quot;K&quot;, _
+        &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, &quot;P&quot;, _
+        &quot;R&quot;, &quot;S&quot;, &quot;T&quot;, &quot;]&quot;, &quot;U&quot;, _
+        &quot;F&quot;, &quot;H&quot;, &quot;C&quot;, &quot;^&quot;, &quot;[&quot; _
+    )
+    &apos; yuscii ćirilica mala
+    ReDim tmpStr as Variant
+    tmpStr() = Array(_
+        &quot;|&quot;, _
+        &quot;x&quot;, &quot;q&quot;, &quot;w&quot;, &quot;|&quot;, &quot;a&quot;, _
+        &quot;b&quot;, &quot;v&quot;, &quot;g&quot;, &quot;d&quot;, &quot;e&quot;, _
+        &quot;`&quot;, &quot;z&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, _
+        &quot;l&quot;, &quot;m&quot;, &quot;n&quot;, &quot;o&quot;, &quot;p&quot;, _
+        &quot;r&quot;, &quot;s&quot;, &quot;t&quot;, &quot;}&quot;, &quot;u&quot;, _
+        &quot;f&quot;, &quot;h&quot;, &quot;c&quot;, &quot;~&quot;, &quot;{&quot; _
+    )
+    &apos; Spajanje velikih i malih yuscii ćiriličnih slova u jedan niz
+    Array1_AppendElement(cscStr, tmpStr)
+
+    &apos; Journalist edition
+    &apos; Tanjug (novinarska) latinica velika
+    nolStr() = Array(_
+        &quot;Dj&quot;, &quot;Dj&quot;, _
+        &quot;D&quot; &amp; &quot;zz&quot;, &quot;LJ&quot;, &quot;NJ&quot;, _
+        &quot;D&quot; &amp; &quot;zz&quot;, &quot;Lj&quot;, &quot;Nj&quot;, &quot;Dj&quot;, &quot;A&quot;, _
+        &quot;B&quot;, &quot;V&quot;, &quot;G&quot;, &quot;D&quot;, &quot;E&quot;, _
+        &quot;Zz&quot;, &quot;Z&quot;, &quot;I&quot;, &quot;J&quot;, &quot;K&quot;, _
+        &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, &quot;P&quot;, _
+        &quot;R&quot;, &quot;S&quot;, &quot;T&quot;, &quot;Cc&quot;, &quot;U&quot;, _
+        &quot;F&quot;, &quot;H&quot;, &quot;C&quot;, &quot;Ch&quot;, &quot;Ss&quot; _
+    )
+    &apos; Tanjug (novinarska) latinica mala
+    ReDim tmpStr as Variant
+    tmpStr() = Array(_
+        &quot;dj&quot;, _
+        &quot;d&quot; &amp; &quot;zz&quot;, &quot;lj&quot;, &quot;nj&quot;, &quot;dj&quot;, &quot;a&quot;, _
+        &quot;b&quot;, &quot;v&quot;, &quot;g&quot;, &quot;d&quot;, &quot;e&quot;, _
+        &quot;zz&quot;, &quot;z&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, _
+        &quot;l&quot;, &quot;m&quot;, &quot;n&quot;, &quot;o&quot;, &quot;p&quot;, _
+        &quot;r&quot;, &quot;s&quot;, &quot;t&quot;, &quot;cc&quot;, &quot;u&quot;, _
+        &quot;f&quot;, &quot;h&quot;, &quot;c&quot;, &quot;ch&quot;, &quot;ss&quot; _
+    )
+    &apos; Spajanje velikih i malih Tanjug (novinarskih) slova u jedan niz
+    Array1_AppendElement(nolStr, tmpStr)
+
+    &apos; Parovi sa J i samoglasnici
+    ldbSStr() = Array(&quot;D&quot; &amp; Chr$(382), &quot;Dj&quot;, &quot;Lj&quot;, &quot;Nj&quot;)
+    ldbCStr() = Array(&quot;D&quot; &amp; Chr$(381), &quot;DJ&quot;, &quot;LJ&quot;, &quot;NJ&quot;)
+    smgStr() = Array(&quot;A&quot;, &quot;E&quot;, &quot;I&quot;, &quot;O&quot;, &quot;U&quot;)
+
+	&apos; Dj/dj kombinacije koje treba da pređu u Đ/đ
+	&apos; + ođe/ođu ~ odje/odju
+	djStrIZ() = Array(_
+	    &quot;DJ&quot;, &quot;Dj&quot;, &quot;dj&quot;, _
+	    &quot;o&quot; &amp; Chr$(273) &amp; &quot;e&quot;, _
+	    &quot;O&quot; &amp; Chr$(273) &amp; &quot;e&quot;, _
+	    &quot;O&quot; &amp; Chr$(272) &amp; &quot;E&quot;, _
+	    &quot;o&quot; &amp; Chr$(273) &amp; &quot;u&quot;, _
+	    &quot;O&quot; &amp; Chr$(273) &amp; &quot;u&quot;, _
+	    &quot;O&quot; &amp; Chr$(272) &amp; &quot;U&quot;, _
+	    &quot;a&quot; &amp; Chr$(273) &amp; &quot;a&quot; &amp; Chr$(269), _
+	    &quot;A&quot; &amp; Chr$(273) &amp; &quot;a&quot; &amp; Chr$(269), _
+	    &quot;A&quot; &amp; Chr$(272) &amp; &quot;A&quot; &amp; Chr$(268) _
+	)
+	djStrU() = Array(_
+	    Chr$(272), Chr$(272), Chr$(273), _
+	    &quot;odje&quot;, _
+	    &quot;Odje&quot;, _
+	    &quot;ODJE&quot;, _
+	    &quot;odju&quot;, _
+	    &quot;Odju&quot;, _
+	    &quot;ODJU&quot;, _
+  	    &quot;adja&quot; &amp; Chr$(269), _
+	    &quot;Adja&quot; &amp; Chr$(269), _
+	    &quot;ADJA&quot; &amp; Chr$(268)_
+    )
+
+    &apos; Pražnjenje privremenog niza tmpStr
+    ReDim tmpStr
+End Function
+
+&apos; Rutina za pokretanje OOoTranslit dijaloga
+Sub RunTranslit
+  OpenDialog()
+End Sub
+
+&apos; Rutina za prikaz i zatvaranje OOoTranslit dijaloga
+Sub OpenDialog
+    Dim sPath as String
+    Dim sImgPath as String
+    Dim oControl as Object
+    Dim version as String
+    Dim ovaGodina As Integer
+    
+    &apos; Mogla bi verzija da se uzima iz description.xml datoteke?
+    version = &quot;24.02.0&quot;
+
+    &apos; Učitavanje biblioteke za upravljanje dijalozima u promenljivu oDlg
+    DialogLibraries.LoadLibrary(&quot;oootranslit&quot;)
+    oDlg = createUnoDialog(DialogLibraries.oootranslit.dlgTranslit)
+
+    &apos; Postavljanje naslova dijaloga (sa verzijom dodatka)
+    oDlg.Title = &quot;OOoTranslit &quot; &amp; version
+
+    &apos; Učitavanje logotipa dodatka u kontrolu slike oootLogo
+    sPath = OootGetPackageDirURL(&quot;urosevic.oootranslit&quot;)
+    sImgPath = sPath &amp; &quot;/images/logo.png&quot;
+    oControl = oDlg.getControl(&quot;oootLogo&quot;)
+    oControl.getModel().ImageURL = ConvertToURL(sImgPath)
+
+    &apos; Izvršavanje (prikaz) dijaloga
+    oDlg.execute()
+    oDlg.dispose()
+End Sub
+
+&apos; Rutina za zatvaranje dijaloga
+Sub CloseDialog()
+    oDlg.endExecute()
+End Sub
+
+&apos; Neophotno je implementirati ceo interfejs za upravljanje dijalozima!
+Sub oDlg_windowActivated(oEv)
+End Sub
+Sub oDlg_windowDeactivated(oEv)
+End Sub
+Sub oDlg_windowOpened(oEv)
+End Sub
+Sub oDlg_windowClosing(oEv)
+    CloseDialog()
+End Sub
+Sub oDlg_windowClosed(oEv)
+End Sub
+Sub oDlg_windowMinimized(oEv)
+End Sub
+Sub oDlg_windowNormalized(oEv)
+End Sub
+Sub oDlg_disposing(oEv)
+End Sub
+
+&apos; Rutina za pokretanje preslovljavanja sa dijaloga
+Sub doTranslit()
+    Dim trans_iz, trans_u As Integer
+
+    &apos; Inicijalizacija nizova slova
+    Init()
+
+    &apos; Pronađi koje preslovljavanje treba da se radi?
+    If oDlg.Model.optIZ1.state = 1 Then
+        trans_iz = 1
+    ElseIf oDlg.Model.optIZ2.state = 1 Then
+        trans_iz = 2
+    ElseIf oDlg.Model.optIZ3.state = 1 Then
+        trans_iz = 3
+    ElseIf oDlg.Model.optIZ4.state = 1 Then
+        trans_iz = 4
+    ElseIf oDlg.Model.optIZ5.state = 1 Then
+        trans_iz = 5
+    End If
+
+    If oDlg.Model.optU1.state = 1 Then
+        trans_u = 1
+    ElseIf oDlg.Model.optU2.state = 1 Then
+        trans_u = 2
+    ElseIf oDlg.Model.optU3.state = 1 Then
+        trans_u = 3
+    ElseIf oDlg.Model.optU4.state = 1 Then
+        trans_u = 4
+    ElseIf oDlg.Model.optU5.state = 1 Then
+        trans_u = 5
+    End If
+
+    &apos; Ako su ulazno i izlazno pismo isto, obavestimo korisnika o takvoj nebulozi
+    If trans_iz = trans_u Then
+        msgbox &quot;Preslovljavanje teksta između istovetnih rasporeda nema svrhu!&quot;, 32, &quot;Upozorenje!&quot;
+        Exit Sub
+    ElseIf trans_iz = 5 AND trans_u = 1 AND oDlg.Model.chkSelected.State = 1 Then &apos; novinarska latinica u ćirilicu unutar izbora trenutno ne može
+        msgbox &quot;Preslovljavanje novinarskog pisma u ćirilicu unutar izabranog teksta nije podržano.&quot;, 64, &quot;Obaveštenje&quot;
+        Exit Sub
+    Else
+        &apos; Uzimanje niza slova za odabrano ulazno pismo
+        Select Case trans_iz
+            Case 1
+                strIZ() = cirStr()
+            Case 2
+                strIZ() = latStr()
+            Case 3
+                strIZ() = yslStr()
+            Case 4
+                strIZ() = cscStr()
+            Case 5
+                strIZ() = nolStr()
+        End Select
+        &apos; Uzimanje niza slova za odabrano izlazno pismo
+        Select Case trans_u
+            Case 1
+                strU() = cirStr()
+            Case 2
+                strU() = latStr()
+            Case 3
+                strU() = yslStr()
+            Case 4
+                strU() = cscStr()
+            Case 5
+                strU() = nolStr()
+        End Select
+    End If
+
+    &apos; Pozivamo funkciju za preslovljavanje odabranih pisama
+    rpl(oDlg.Model.chkSelected.State &lt;&gt; 1, trans_u)
+
+    &apos; sredi „nj“ parove
+	If trans_u = 1 Then
+    	rplNJ(True)
+    	rplStrano(True)
+    End If
+    
+    &apos; Popravka novinarskog u ćirilicu (za ceo tekst)
+    If trans_iz = 5 AND trans_u = 1 Then
+        &apos;                       Sh                                     sh                                      Ch                                      ch
+        strIZ() = Array(Chr$(1057) &amp; Chr$(1089), Chr$(1089) &amp; Chr$(1089), Chr$(1062) &amp; Chr$(1093), Chr$(1094) &amp; Chr$(1093))
+        strU()  = Array(Chr$(1064),                       Chr$(1096),                       Chr$(1063),                       Chr$(1095))
+        rpl(True, trans_u)
+    End If
+
+    &apos; Ako je uključena opcija za zatvaranje dijaloga nakon preslovljavanja, zatvarmo ga
+    If oDlg.Model.closeAExec.State = 1 Then
+        CloseDialog()
+    End If
+End Sub
+
+&apos; Izabrano, ćirilica u latinicu
+Sub trSCL()
+    Init()
+    strIZ() = cirStr()
+    strU() = latStr()
+    rpl(False, 2)
+End Sub
+&apos; Izabrano, latinica u ćirilicu
+Sub trSLC()
+    Init()
+    strIZ() = latStr()
+    strU() = cirStr()
+    rpl(False, 1)
+    &apos; sredi „nj“ parove
+    rplNJ(False)
+    rplStrano(False)
+End Sub
+
+&apos; Sve, ćirilica u Latinicu
+Sub trACL()
+    Init()
+    strIZ() = cirStr()
+    strU() = latStr()
+    rpl(True, 2)
+End Sub
+&apos; Sve, latinica u ćirilicu
+Sub trALC()
+    Init()
+    strIZ() = latStr()
+    strU() = cirStr()
+    rpl(True, 1)
+    &apos; sredi „nj“ parove
+    rplNJ(True)
+    rplStrano(True)
+End Sub
+
+&apos; Omotač za poziv preslovljavanja u različitim programima
+Sub rpl(sve as Boolean, ciljni As Integer)
+    If ThisComponent.SupportsService(&quot;com.sun.star.sheet.SpreadsheetDocument&quot;) Then
+        rplCalc(sve, ciljni)
+    ElseIf ThisComponent.SupportsService(&quot;com.sun.star.text.TextDocument&quot;) Then
+        rplWriter(sve, ciljni)
+    Else
+        &apos; Impress:    &quot;com.sun.star.presentation.PresentationDocument&quot;
+        &apos; Draw:       &quot;com.sun.star.drawing.DrawingDocument&quot;
+        &apos; Base:       &quot;com.sun.star.sdb.DatabaseDocument&quot;
+        &apos; Math:       &quot;com.sun.star.formula.FormulaProperties&quot;
+        msgbox &quot;Preslovljavanje u ovom programu iz paketa LibreOffice/OpenOffice nije implementirano.&quot;, 64, &quot;Obaveštenje&quot;
+    End If
+End Sub
+
+Sub rplComponent(oComponent as Object, ciljni as Integer)
+    Dim oRpl as Object
+
+    oRpl = oComponent.createReplaceDescriptor()
+    &apos; Veličina slova je bitna
+    oRpl.SearchCaseSensitive = True
+
+    &apos; Preslovi sve
+    For n = LBound(strIZ()) To UBound (strIZ())
+        oRpl.SearchString = strIZ(n)
+        oRpl.ReplaceString = strU(n)
+        oComponent.ReplaceAll(oRpl)
+    Next n
+
+    If ciljni = 2 OR ciljni = 3 Then
+        &apos; ispravka (Lj|Nj|Dz|Dj)[AEIOU]
+        For n = LBound(ldbSStr()) To UBound(ldbSStr())
+            For m = LBound(smgStr()) To UBound(smgStr())
+                oRpl.SearchString = ldbSStr(n) &amp; smgStr(m)
+                oRpl.ReplaceString = ldbCStr(n) &amp; smgStr(m)
+                oComponent.ReplaceAll(oRpl)
+            Next m
+        Next n
+        &apos; ispravka DJ i Dj u Đ, te dj u đ
+        For n = LBound(djStrIZ()) To UBound(djStrIZ())
+        	oRpl.SearchString = djStrIZ(n)
+        	oRpl.ReplaceString = djStrU(n)
+        	oComponent.ReplaceAll(oRpl)
+        Next n
+    Else
+        &apos; Ispravka pogrešno preslovljenog DZ u dva ćirilična slova - DZ
+        oRpl.SearchString = Chr$(1044) &amp; Chr$(1046)
+        oRpl.ReplaceString = Chr$(1039)
+        oComponent.ReplaceAll(oRpl)
+    End If
+
+    &apos; TODO: Sredi dupla slova iz novinarske latinice u Ćirilicu
+    &apos; If ciljni = 1 Then
+    &apos; ...
+    &apos; End If
+End Sub
+
+Function rplString(sText as String, ciljni As Integer) as String
+    Dim sLetter As String, dLetter As String, rText as String
+    Dim lIndex As Long
+
+    lIndex = 1
+    Do While lIndex &lt;= Len(sText)
+        sLetter = Mid(sText, lIndex, 1)
+
+        Select Case sLetter
+            Case &quot;l&quot;, &quot;n&quot;, &quot;d&quot;, &quot;L&quot;, &quot;N&quot;, &quot;D&quot;
+                dLetter = Mid(sText, lIndex, 2)
+                if dLetter=strIZ(0) or dLetter=&quot;lj&quot; or dLetter=&quot;nj&quot; or dLetter=strIZ(30) or dLetter=&quot;LJ&quot; or dLetter=&quot;NJ&quot; or dLetter=strIZ(33) or dLetter=&quot;Lj&quot; or dLetter=&quot;Nj&quot; Then          
+                    sLetter = dLetter
+                Else
+                    dLetter = &quot;&quot;
+                End If
+        End Select
+
+        For n = LBound(strIZ()) To UBound(strIZ())
+            If strIZ(n) = sLetter Then
+                sLetter = strU(n)
+                n = UBound(strIZ())
+            End If
+        Next n
+
+        rText = rText + sLetter
+        lIndex = lIndex + 1
+        If Len(dLetter) = 2 then
+            dLetter = &quot;&quot;
+            lIndex = lIndex + 1
+        End If
+    Loop
+
+    rplString = rText
+End Function
+
+Sub rplNJ(sve As Boolean)
+    Dim oComponent, oRpl as Object
+    dim str_iz, str_u As String
+
+    &apos; Postavi komponentu za Calc drugačije od Writer komponente
+    If ThisComponent.SupportsService(&quot;com.sun.star.sheet.SpreadsheetDocument&quot;) Then
+        &apos; sve ili izbor
+        If sve Then
+            oComponent = ThisComponent.getCurrentController.getActiveSheet
+        Else
+            oComponent = ThisComponent.getCurrentSelection
+        End If
+    Else
+        oComponent = ThisComponent
+    End If
+
+    oRpl = oComponent.createReplaceDescriptor()
+    oRpl.SearchCaseSensitive = True &apos; Veličina slova je bitna
+
+    &apos; Sredi probleme sa parom „DJ“, „DŽ“ i „NJ“
+    &apos; конјукција ~ конјункција
+	strIZ() = Array(_
+		&quot;ође&quot;,     &quot;ОЂЕ&quot;, &quot;Ође&quot;, _
+		&quot;ођу&quot;,      &quot;ОЂУ&quot;, &quot;Ођу&quot;, _
+		&quot;ађач&quot;,     &quot;АЂАЧ&quot;, &quot;Ађач&quot;, _
+		&quot;ањезичн&quot;,  &quot;АЊЕЗИЧН&quot;, _
+		&quot;њекциј&quot;,   &quot;ЊЕКЦИЈ&quot;, _
+		&quot;тањуг&quot;,    &quot;ТАЊУГ&quot;, &quot;Тањуг&quot;, _
+		&quot;оњугациј&quot;, &quot;ОЊУГАЦИЈ&quot;, _
+		&quot;њукти&quot;,    &quot;ЊУКТИ&quot;, _
+		&quot;њукциј&quot;,   &quot;ЊУКЦИЈ&quot;, _
+		&quot;оњукциј&quot;,  &quot;ОЊУКЦИЈ&quot;, _
+		&quot;оњунк&quot;,    &quot;ОЊУНК&quot;, _
+		&quot;наџе&quot;,     &quot;НАЏЕ&quot;, _
+		&quot;оџвака&quot;,   &quot;ОЏВАКА&quot;, &quot;Оџвака&quot;, _
+		&quot;аџиве&quot;,    &quot;АЏИВЕ&quot;, _
+		&quot;оџиве&quot;,    &quot;ОЏИВЕ&quot;, _
+		&quot;џубори&quot;,   &quot;ЏУБОРИ&quot;, _
+		&quot;оџури&quot;,    &quot;ОЏУРИ&quot; _
+	)
+
+	strU() = Array(_
+		&quot;одје&quot;,     &quot;ОДЈЕ&quot;, &quot;Одје&quot;, _
+		&quot;одју&quot;,      &quot;ОДЈУ&quot;, &quot;Одју&quot;, _
+		&quot;адјач&quot;,     &quot;АДЈАЧ&quot;, &quot;Адјач&quot;, _
+		&quot;анјезичн&quot;,  &quot;АНЈЕЗИЧН&quot;, _
+		&quot;нјекциј&quot;,   &quot;НЈЕКЦИЈ&quot;, _
+		&quot;танјуг&quot;,    &quot;ТАНЈУГ&quot;, &quot;Танјуг&quot;, _
+		&quot;онјугациј&quot;, &quot;ОНЈУГАЦИЈ&quot;, _
+		&quot;нјукти&quot;,    &quot;НЈУКТИ&quot;, _
+		&quot;нјукциј&quot;,   &quot;НЈУКЦИЈ&quot;, _
+		&quot;онјукциј&quot;,  &quot;ОНЈУКЦИЈ&quot;, _
+		&quot;онјунк&quot;,    &quot;ОНЈУНК&quot;, _
+		&quot;надже&quot;,     &quot;НАДЖЕ&quot;, _
+		&quot;оджвака&quot;,   &quot;ОДЖВАКА&quot;, &quot;Оджвака&quot;, _
+		&quot;адживе&quot;,    &quot;АДЖИВЕ&quot;, _
+		&quot;одживе&quot;,    &quot;ОДЖИВЕ&quot;, _
+		&quot;джубори&quot;,   &quot;ДЖУБОРИ&quot;, _
+		&quot;оджури&quot;,    &quot;ОДЖУРИ&quot; _
+	)
+
+    For n = LBound(strIZ()) To UBound (strIZ())
+    	str_iz = strIZ(n)
+    	str_u = strU(n)
+        oRpl.SearchString = strIZ(n)
+        oRpl.ReplaceString = strU(n)
+        oComponent.ReplaceAll(oRpl)
+    Next n
+End Sub
+
+&apos; Ispravka delimično preslovljenih stranih fraza
+Sub rplStrano(sve As Boolean)
+    Dim oComponent, oRpl as Object
+
+    &apos; Postavi komponentu za Calc drugačije od Writer komponente
+    If ThisComponent.SupportsService(&quot;com.sun.star.sheet.SpreadsheetDocument&quot;) Then
+        &apos; sve ili izbor
+        If sve Then
+            oComponent = ThisComponent.getCurrentController.getActiveSheet
+        Else
+            oComponent = ThisComponent.getCurrentSelection
+        End If
+    Else
+        oComponent = ThisComponent
+    End If
+
+    oRpl = oComponent.createReplaceDescriptor()
+    oRpl.SearchCaseSensitive = True &apos; Veličina slova je bitna
+
+    &apos; Sredi probleme sa slovima „x, w, y“
+    
+    &apos; Sredi brendove koji ostaju na:
+    &apos; 1) latinici
+    &apos; 2) ćirilici
+    strIZ() = Array(_
+    	&quot;Апацхе&quot;, &quot;ОпенОффице.орг&quot;, &quot;ОпенОффице&quot;, &quot;ЛибреОффице&quot;, _
+    	&quot;WордПресс&quot;, &quot;ФацеБоок&quot;, &quot;Тwиттер&quot;, _
+    	_
+    	&quot;Линуx&quot;, &quot;Wиндоwс&quot;, &quot;Мицрософт&quot; _
+    )
+    strU()  = Array(_
+    	&quot;Apache&quot;, &quot;OpenOffice.org&quot;, &quot;OpenOffice&quot;, &quot;LibreOffice&quot;, _
+    	&quot;WordPress&quot;, &quot;FaceBook&quot;, &quot;Twitter&quot;, _
+    	_
+    	&quot;Линукс&quot;, &quot;Windows&quot;, &quot;Microsoft&quot; _
+    )
+
+    For n = LBound(strIZ()) To UBound (strIZ())
+        oRpl.SearchString = strIZ(n)
+        oRpl.ReplaceString = strU(n)
+        oComponent.ReplaceAll(oRpl)
+    Next n
+End Sub
+
+Sub rplWriter(sve as Boolean, ciljni As Integer)
+    If sve Then:
+        rplComponent(ThisComponent, ciljni)
+
+    Else
+        Dim lSelCount as Variant, oSelections As Object, oSelection As Object
+        Dim iWhichSelection As Integer
+        Dim oText As Object, oCursor As Object
+        Dim sText As String, rText as String
+
+        oSelections = ThisComponent.getCurrentSelection()
+        lSelCount = oSelections.getCount()
+        oText = ThisComponent.Text
+        For iWhichSelection = 0 To lSelCount - 1
+            oSelection = oSelections.getByIndex(iWhichSelection)
+            &apos; oCursor = oText.createTextCursorByRange(oSelection) &apos; Isključeno jer pravi probleme u frejmovima
+            sText = oSelection.getString()
+            rText = rplString(sText, ciljni)
+            &apos; oCursor.SetString(rText) &apos; Isključeno jer pravi probleme u frejmovima
+            oSelection.SetString(rText)
+        Next iWhichSelection
+
+    End If
+End Sub
+
+Function rplCalc(sve As Boolean, ciljni As Integer)
+    If sve Then
+        rplComponent(StarDesktop.CurrentComponent.CurrentController.ActiveSheet, ciljni)
+
+    Else
+        Dim oSels
+        oSels = ThisComponent.getCurrentSelection()
+        If Not IsNull(oSels) Then rplCalcRegions(oSels, ciljni)
+
+    End If
+End Function
+
+Sub rplCalcRegions(oSels as Object, ciljni as Integer)
+    Dim i As Long, j As Long
+
+    If oSels.supportsService(&quot;com.sun.star.sheet.SheetCellRanges&quot;) Then
+        &apos; Više nezavisnih opsega
+        For i = 0 To oSels.getCount() - 1
+            rplCalcRegions(oSels.getByIndex(i))
+        Next
+
+    ElseIf oSels.supportsService(&quot;com.sun.star.sheet.SheetCellRange&quot;) Then
+        &apos; Jedan opseg
+        Dim oData()
+        Dim oRow()
+        Dim MaxUsedRow As Long, MaxUsedColumn As Long
+        Dim MaxRow As Long, MaxRowColumn As Long
+
+        &apos; Ne dozvoli beskonačnu petlju kada je selektovana cela kolona
+        MaxUsedRow = getLastUsedRow(StarDesktop.CurrentComponent.CurrentController.ActiveSheet)
+        MaxUsedColumn = getLastUsedColumn(StarDesktop.CurrentComponent.CurrentController.ActiveSheet)
+
+        oData() = oSels.getDataArray()
+        MaxRow = UBound(oData())
+        If MaxRow &gt; MaxUsedRow Then
+            MaxRow = MaxUsedRow
+        End If
+
+        For i = LBound(oData()) To MaxRow
+
+            oRow() = oData(i)
+            MaxRowColumn = UBound(oRow())
+            If MaxRowColumn &gt; MaxUsedColumn Then
+                MaxRowColumn = MaxUsedColumn
+            End If
+
+            For j = LBound(oRow()) To MaxRowColumn
+                oRow(j) = rplString(oRow(j), ciljni)
+            Next
+        Next
+        oSels.setDataArray(oData())
+    End If
+End Sub
+
+&apos;############################################################
+&apos; Get used cells - from Andrew&apos;s Macro Information
+&apos;############################################################
+
+Function getLastUsedColumn(oSheet as Object) as Long
+    Dim oCell As Object
+    Dim oCursor As Object
+    Dim aAddress As Variant
+
+    oCell = oSheet.GetCellbyPosition(0, 0)
+    oCursor = oSheet.createCursorByRange(oCell)
+    oCursor.GotoEndOfUsedArea(True)
+    aAddress = oCursor.RangeAddress
+
+    GetLastUsedColumn = aAddress.EndColumn
+End Function
+
+Function getLastUsedRow(oSheet as Object) as Long
+    Dim oCell As Object
+    Dim oCursor As Object
+    Dim aAddress As Variant
+
+    oCell = oSheet.GetCellbyPosition(0, 0)
+    oCursor = oSheet.createCursorByRange(oCell)
+    oCursor.GotoEndOfUsedArea(True)
+    aAddress = oCursor.RangeAddress
+
+    GetLastUsedRow = aAddress.EndRow
+End Function
+
+&apos;############################################################
+&apos;   Working with Arrays (Dany&apos;s macro snippet)
+&apos;############################################################
+
+&apos;--------------------
+&apos; Return the number of elements in a single dimensional array.
+&apos; Typically this array was created by calling Array().
+Function Array1_Size(aArray) As Long
+    On Error GoTo ErrorHandler
+        nNumElements = UBound(aArray) + 1
+        Array1_Size() = nNumElements
+        Exit Function
+
+    ErrorHandler:
+        Array1_Size() = 0
+End Function
+
+&apos;--------------------
+&apos; Append a new element onto the end of a single dimensional array.
+&apos; Typically this array was created by calling Array().
+&apos; Example:
+&apos;   aArray = Array()
+&apos;   Array1_AppendElement(aArray, &quot;Red&quot;)
+&apos;   Array1_AppendElement(aArray, &quot;Orange&quot;)
+&apos;   Array1_AppendElement(aArray, &quot;Yellow&quot;)
+&apos; is the same as writing...
+&apos;   aArray = Array(&quot;Red&quot;, &quot;Orange&quot;, &quot;Yellow&quot;)
+&apos; is the same as writing...
+&apos;   Dim aArray(2)
+&apos;   aArray(0) = &quot;Red&quot;
+&apos;   aArray(1) = &quot;Orange&quot;
+&apos;   aArray(2) = &quot;Yellow&quot;
+&apos; except in the last example, aArray is statically known by the
+&apos;  compiler to be an array, so you must always use parenthesis
+&apos;  when passing the array to a function.
+&apos;
+Sub Array1_AppendElement(aArray, uNewElement)
+    nNumElements = Array1_Size(aArray)
+    If nNumElements = 0 Then
+        aArray = Array(uNewElement)
+    Else
+        if isArray(uNewElement) then
+            For n = LBound(uNewElement) To UBound(uNewElement)
+                Redim Preserve aArray(nNumElements + n)
+                aArray(nNumElements + n) = uNewElement(n)
+            Next
+        else
+            Redim Preserve aArray(nNumElements)
+            aArray(nNumElements) = uNewElement
+        End If
+    End If
+End Sub
+
+&apos;--------------------
+&apos; IsInArray() function based upon idea from Iannz in this thread
+&apos;   http://www.oooforum.org/forum/viewtopic.php?p=29096#29096
+&apos; You can use IsInArray() as follows
+&apos;
+&apos;   If IsInArray(23, Array(1,12,14,23,45,87)) Then ...
+&apos;   If IsInArray(cName, Array(&quot;Joe&quot;,&quot;John&quot;,&quot;Frank&quot;)) Then ...
+&apos;
+Function IsInArray(uValue, aArrayOfValues) As Boolean
+    IsInArray = (ArrayIndexOf(uValue, aArrayOfValues) &gt;= 0)
+End Function
+
+&apos; Similar to IsInArray(), but returns the array index, or -1 if not found.
+Function ArrayIndexOf(uValue, aArrayOfValues) As Long
+    ArrayIndexOf = -1
+    For i = LBound(aArrayOfValues) To UBound(aArrayOfValues)
+        If uValue = aArrayOfValues(i) Then
+            ArrayIndexOf = i
+            Exit Function
+        End If
+    Next
+End Function
+
+Function OootScriptChanged()
+
+    Dim dugme As Object
+
+    Dim optIZ1 As Boolean
+    Dim optIZ2 As Boolean
+    Dim optIZ3 As Boolean
+    Dim optIZ4 As Boolean
+    Dim optIZ5 As Boolean
+    Dim optIZ As String
+
+    Dim optU1 As Boolean
+    Dim optU2 As Boolean
+    Dim optU3 As Boolean
+    Dim optU4 As Boolean
+    Dim optU5 As Boolean
+    Dim optU As String
+
+    optIZ1 = oDlg.getControl(&quot;optIZ1&quot;).State
+    optIZ2 = oDlg.getControl(&quot;optIZ2&quot;).State
+    optIZ3 = oDlg.getControl(&quot;optIZ3&quot;).State
+    optIZ4 = oDlg.getControl(&quot;optIZ4&quot;).State
+    optIZ5 = oDlg.getControl(&quot;optIZ5&quot;).State
+
+    If optIZ1 Then
+        optIZ = &quot;cir&quot;
+    ElseIf optIZ2 Then
+        optIZ = &quot;lat&quot;
+    ElseIf optIZ3 Then
+        optIZ = &quot;yus&quot;
+    ElseIf optIZ4 Then
+        optIZ = &quot;cis&quot;
+    Else
+        optIZ = &quot;nov&quot;
+    End If
+
+    optU1 = oDlg.getControl(&quot;optU1&quot;).State
+    optU2 = oDlg.getControl(&quot;optU2&quot;).State
+    optU3 = oDlg.getControl(&quot;optU3&quot;).State
+    optU4 = oDlg.getControl(&quot;optU4&quot;).State
+    optU5 = oDlg.getControl(&quot;optU5&quot;).State
+
+    If optU1 Then
+        optU = &quot;cir&quot;
+    ElseIf optU2 Then
+        optU = &quot;lat&quot;
+    ElseIf optU3 Then
+        optU = &quot;yus&quot;
+    ElseIf optU4 Then
+        optU = &quot;cis&quot;
+    Else
+        optU = &quot;nov&quot;
+    End If
+
+    &apos; Ako su IZ i U jednaki, nema svrhe pokretati preslovljavanje, pa isključi dugme Preslovi
+    dugme = oDlg.getControl(&quot;cmdGoOn&quot;)
+    If optIZ = optU Then
+        dugme.setVisible(False)
+    Else
+        dugme.setVisible(True)
+    End If
+    
+End Function
+
+Function OootGetPackageDirURL(sIdentifier As String) As String
+    Dim oPIP As Object
+
+    oPIP = GetDefaultContext().getByName(&quot;/singletons/com.sun.star.deployment.PackageInformationProvider&quot;)
+    OootGetPackageDirURL = oPIP.getPackageLocation(sIdentifier)
+End Function
+
+Function visitOOoTranslitWebsite()
+    Dim launcher As Object
+
+    launcher = CreateUnoService(&quot;com.sun.star.system.SystemShellExecute&quot;)
+    launcher.execute(&quot;https:/urosevic.net/oootranslit/&quot;, &quot;&quot;, 0)
+End Function
+
+</script:module>

@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<oor:component-data 
+ xmlns:oor="http://openoffice.org/2001/registry"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ oor:name="Addons"
+ oor:package="org.openoffice.Office">
+	<node oor:name="AddonUI">
+		<node oor:name="OfficeToolBar">
+			<node oor:name="oootranslit.OfficeToolBar" oor:op="replace">
+				<prop oor:name="Title">
+					<value cml:lang="en">OOoTranslit</value>
+					<value cml:lang="sr_SR">ООоТранслитератор</value>
+					<value cml:lang="sr">OOoTransliterator</value>
+				</prop>
+				<node oor:name="ToolBarItems">
+					<node oor:name="m1" oor:op="replace">
+						<prop oor:name="Context" oor:type="xs:string">
+							<value>com.sun.star.text.TextDocument,com.sun.star.sheet.SpreadsheetDocument</value>
+						</prop>
+						<prop oor:name="URL" oor:type="xs:string">
+							<value>vnd.sun.star.script:oootranslit.fncTranslit.RunTranslit?language=Basic&amp;location=application</value>
+						</prop>
+						<prop oor:name="ImageIdentifier" oor:type="xs:string">
+							<value>%origin%/images/ooot</value>
+						</prop>
+						<prop oor:name="ImageBigURL" oor:type="xs:string">
+							<value>%origin%/images/ooot.png</value>
+						</prop>
+						<prop oor:name="ImageSmallURL" oor:type="xs:string">
+							<value>%origin%/images/ooot.png</value>
+						</prop>
+						<prop oor:name="Title" oor:type="xs:string">
+							<value cml:lang="en">Open OOoTranslit tool</value>
+							<value cml:lang="sr">Отвори ООоТранслит алат</value>
+							<value cml:lang="sr_RS">Otvori OOoTranslit alat</value>
+						</prop>
+						<prop oor:name="Target" oor:type="xs:string">
+							<value>_self</value>
+						</prop>
+					</node>
+					<node oor:name="m2" oor:op="replace">
+						<prop oor:name="Context" oor:type="xs:string">
+							<value>com.sun.star.text.TextDocument,com.sun.star.sheet.SpreadsheetDocument</value>
+						</prop>
+						<prop oor:name="URL" oor:type="xs:string">
+							<value>private:separator</value>
+						</prop>
+					</node>
+					<node oor:name="m3" oor:op="replace">
+						<prop oor:name="Context" oor:type="xs:string">
+							<value>com.sun.star.text.TextDocument,com.sun.star.sheet.SpreadsheetDocument</value>
+						</prop>
+						<prop oor:name="URL" oor:type="xs:string">
+							<value>vnd.sun.star.script:oootranslit.fncTranslit.trALC?language=Basic&amp;location=application</value>
+						</prop>
+						<prop oor:name="ImageIdentifier" oor:type="xs:string">
+							<value>%origin%/images/alc</value>
+						</prop>
+						<prop oor:name="ImageBigURL" oor:type="xs:string">
+							<value>%origin%/images/alc.png</value>
+						</prop>
+						<prop oor:name="ImageSmallURL" oor:type="xs:string">
+							<value>%origin%/images/alc.png</value>
+						</prop>
+						<prop oor:name="Title" oor:type="xs:string">
+							<value cml:lang="en">Convert all to Cyrillic script</value>
+							<value cml:lang="sr">Преслови све у ћирилицу</value>
+							<value cml:lang="sr_RS">Preslovi sve u ćirilicu</value>
+						</prop>
+						<prop oor:name="Target" oor:type="xs:string">
+							<value>_self</value>
+						</prop>
+					</node>
+					<node oor:name="m4" oor:op="replace">
+						<prop oor:name="Context" oor:type="xs:string">
+							<value>com.sun.star.text.TextDocument,com.sun.star.sheet.SpreadsheetDocument</value>
+						</prop>
+						<prop oor:name="URL" oor:type="xs:string">
+							<value>vnd.sun.star.script:oootranslit.fncTranslit.trACL?language=Basic&amp;location=application</value>
+						</prop>
+						<prop oor:name="ImageIdentifier" oor:type="xs:string">
+							<value>%origin%/images/acl</value>
+						</prop>
+						<prop oor:name="ImageBigURL" oor:type="xs:string">
+							<value>%origin%/images/acl.png</value>
+						</prop>
+						<prop oor:name="ImageSmallURL" oor:type="xs:string">
+							<value>%origin%/images/acl.png</value>
+						</prop>
+						<prop oor:name="Title" oor:type="xs:string">
+							<value cml:lang="en">Convert all to Latin script</value>
+							<value cml:lang="sr">Преслови све у латиницу</value>
+							<value cml:lang="sr_RS">Preslovi sve u latinicu</value>
+						</prop>
+						<prop oor:name="Target" oor:type="xs:string">
+							<value>_self</value>
+						</prop>
+					</node>
+					<node oor:name="m5" oor:op="replace">
+						<prop oor:name="Context" oor:type="xs:string">
+							<value>com.sun.star.text.TextDocument,com.sun.star.sheet.SpreadsheetDocument</value>
+						</prop>
+						<prop oor:name="URL" oor:type="xs:string">
+							<value>vnd.sun.star.script:oootranslit.fncTranslit.trSLC?language=Basic&amp;location=application</value>
+						</prop>
+						<prop oor:name="ImageIdentifier" oor:type="xs:string">
+							<value>%origin%/images/slc</value>
+						</prop>
+						<prop oor:name="ImageBigURL" oor:type="xs:string">
+							<value>%origin%/images/slc.png</value>
+						</prop>
+						<prop oor:name="ImageSmallURL" oor:type="xs:string">
+							<value>%origin%/images/slc.png</value>
+						</prop>
+						<prop oor:name="Title" oor:type="xs:string">
+							<value cml:lang="en">Convert selection to Cyrillic script</value>
+							<value cml:lang="sr">Преслови само изабрано у ћирилицу</value>
+							<value cml:lang="sr_RS">Preslovi samo izabrano u ćirilicu</value>
+						</prop>
+						<prop oor:name="Target" oor:type="xs:string">
+							<value>_self</value>
+						</prop>
+					</node>
+					<node oor:name="m6" oor:op="replace">
+						<prop oor:name="Context" oor:type="xs:string">
+							<value>com.sun.star.text.TextDocument,com.sun.star.sheet.SpreadsheetDocument</value>
+						</prop>
+						<prop oor:name="URL" oor:type="xs:string">
+							<value>vnd.sun.star.script:oootranslit.fncTranslit.trSCL?language=Basic&amp;location=application</value>
+						</prop>
+						<prop oor:name="ImageIdentifier" oor:type="xs:string">
+							<value>%origin%/images/scl</value>
+						</prop>
+						<prop oor:name="ImageBigURL" oor:type="xs:string">
+							<value>%origin%/images/scl.png</value>
+						</prop>
+						<prop oor:name="ImageSmallURL" oor:type="xs:string">
+							<value>%origin%/images/scl.png</value>
+						</prop>
+						<prop oor:name="Title" oor:type="xs:string">
+							<value cml:lang="en">Convert selection to Cyrillic script</value>
+							<value cml:lang="sr">Преслови само изабрано у ћирилицу</value>
+							<value cml:lang="sr_RS">Preslovi samo izabrano u ćirilicu</value>
+						</prop>
+						<prop oor:name="Target" oor:type="xs:string">
+							<value>_self</value>
+						</prop>
+					</node>
+				</node>
+			</node>
+		</node>
+	</node>
+</oor:component-data>
