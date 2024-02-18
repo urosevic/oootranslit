@@ -5,13 +5,19 @@
 &apos; Naziv:     OOoTranslit (od OpenOffice.org Transliteration)
 &apos; Svrha:     Basic makro za dvosmerno preslovljavanje latinice u ćirilicu
 &apos;            u Writer i Calc programima kancelarijskih paketa LibreOffice i Apache OpenOffice
-&apos; Verzija:   24.02.0
+&apos; Verzija:   24.02.1
 &apos; Autor:     Aleksandar Urošević &lt;urke.kg@gmail.com&gt;
 &apos; Prilagači: Goran Rakić &lt;grakic@devbase.net&gt;
 &apos;            Branislav Jovanović &lt;fangorn@eunet.yu&gt;
 &apos; URL:       https://urosevic.net/oootranslit
 &apos;
 &apos; Dnevnik promena:
+&apos; 24.02.1 (18.02.2024) [urke]
+&apos;  * makro: popravljeno preslovljavanje &quot;Понуђач&quot; kao &quot;Ponudjač&quot; umesto &quot;Ponuđač&quot; u izabranom tekstu (prijavio Branimir Amidžić)
+&apos;  * makro: popravljena greška koja dodaje prazan red kod preslovljavanja odabranog teksta (prijavio Pavle Laćarac)
+&apos;  * dialog: popravljen odsečeni tekst na Linux Mint Cinnamon
+&apos;  * paket: popravljen problem sa automatskim ažuriranjem dodatka
+&apos;
 &apos; 24.02.0 (03.02.2024) [urke]
 &apos; * makro: doda ispravka nepotpuno preslovljenih stranih termina
 &apos; * makro: dodato preslovljavanje latiničnog &quot;dj&quot; u ćirilično &quot;đ&quot;
@@ -170,6 +176,8 @@
 &apos;    koje sadrze engleske karaktere (QWYX) - nezadovoljavajuce resenje je deTranslit
 &apos;  * preslovljavanje izabranog teksta i u frejmovima
 &apos;
+&apos; Poznati nedostaci
+&apos; * Preslovljavanjem izabranog teksta gubi se formatiranje
 &apos; **************************************************************************
 
 
@@ -188,7 +196,7 @@ Dim version As String
 Function Init()
     &apos; ćirilična velika
     cirStr() = Array(_
-        Chr$(1026), Chr$(1026), _
+        Chr$(1026), Chr$(1026), Chr$(1026), _
         Chr$(1039), Chr$(1033), Chr$(1034), _
         Chr$(1039), Chr$(1033), Chr$(1034), Chr$(1026), Chr$(1040), _
         Chr$(1041), Chr$(1042), Chr$(1043), Chr$(1044), Chr$(1045), _
@@ -200,7 +208,7 @@ Function Init()
     &apos; ćirilična mala
     Dim tmpStr as Variant
     tmpStr() = Array(_
-        Chr$(1106), _
+        Chr$(1106), Chr$(1106), _
         Chr$(1119), Chr$(1113), Chr$(1114), Chr$(1106), Chr$(1072), _
         Chr$(1073), Chr$(1074), Chr$(1075), Chr$(1076), Chr$(1077), _
         Chr$(1078), Chr$(1079), Chr$(1080), Chr$(1112), Chr$(1082), _
@@ -213,7 +221,7 @@ Function Init()
 
     &apos; latinična velika
     latStr() = Array(_
-        &quot;DJ&quot;, &quot;Dj&quot;, _
+        Chr$(272), &quot;DJ&quot;, &quot;Dj&quot;, _
         &quot;D&quot; &amp; Chr$(382), &quot;Lj&quot;, &quot;Nj&quot;, _
         &quot;D&quot; &amp; Chr$(381), &quot;LJ&quot;, &quot;NJ&quot;, Chr$(272), &quot;A&quot;, _
         &quot;B&quot;, &quot;V&quot;, &quot;G&quot;, &quot;D&quot;, &quot;E&quot;, _
@@ -225,7 +233,7 @@ Function Init()
     &apos; latinična mala
     ReDim tmpStr as Variant
     tmpStr() = Array(_
-        &quot;dj&quot;, _
+        Chr$(273), &quot;dj&quot;, _
         &quot;d&quot; &amp; Chr$(382), &quot;lj&quot;, &quot;nj&quot;, Chr$(273), &quot;a&quot;, _
         &quot;b&quot;, &quot;v&quot;, &quot;g&quot;, &quot;d&quot;, &quot;e&quot;, _
         Chr$(382), &quot;z&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, _
@@ -238,7 +246,7 @@ Function Init()
 
     &apos; yuscii latinica velika
     yslStr() = Array(_
-        &quot;\&quot;,  &quot;\&quot;, _
+        &quot;\&quot;, &quot;\&quot;,  &quot;\&quot;, _
         &quot;D&quot; &amp; &quot;@&quot;, &quot;LJ&quot;, &quot;NJ&quot;, _
         &quot;D&quot; &amp; &quot;`&quot;, &quot;Lj&quot;, &quot;Nj&quot;, &quot;\&quot;, &quot;A&quot;, _
         &quot;B&quot;, &quot;V&quot;, &quot;G&quot;, &quot;D&quot;, &quot;E&quot;, _
@@ -250,7 +258,7 @@ Function Init()
     &apos; yuscii latinica mala
     ReDim tmpStr as Variant
     tmpStr() = Array(_
-        &quot;|&quot;, _
+        &quot;|&quot;, &quot;|&quot;, _
         &quot;d&quot; &amp; &quot;`&quot;, &quot;lj&quot;, &quot;nj&quot;, &quot;|&quot;, &quot;a&quot;, _
         &quot;b&quot;, &quot;v&quot;, &quot;g&quot;, &quot;d&quot;, &quot;e&quot;, _
         &quot;`&quot;, &quot;z&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, _
@@ -263,7 +271,7 @@ Function Init()
 
     &apos; yuscii ćirilica velika
     cscStr() = Array(_
-        &quot;\&quot;,  &quot;\&quot;, _
+        &quot;\&quot;, &quot;\&quot;,  &quot;\&quot;, _
         &quot;X&quot;, &quot;Q&quot;, &quot;W&quot;, _
         &quot;X&quot;, &quot;Q&quot;, &quot;W&quot;, &quot;\&quot;, &quot;A&quot;, _
         &quot;B&quot;, &quot;V&quot;, &quot;G&quot;, &quot;D&quot;, &quot;E&quot;, _
@@ -275,7 +283,7 @@ Function Init()
     &apos; yuscii ćirilica mala
     ReDim tmpStr as Variant
     tmpStr() = Array(_
-        &quot;|&quot;, _
+        &quot;|&quot;, &quot;|&quot;, _
         &quot;x&quot;, &quot;q&quot;, &quot;w&quot;, &quot;|&quot;, &quot;a&quot;, _
         &quot;b&quot;, &quot;v&quot;, &quot;g&quot;, &quot;d&quot;, &quot;e&quot;, _
         &quot;`&quot;, &quot;z&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, _
@@ -289,7 +297,7 @@ Function Init()
     &apos; Journalist edition
     &apos; Tanjug (novinarska) latinica velika
     nolStr() = Array(_
-        &quot;Dj&quot;, &quot;Dj&quot;, _
+        &quot;Dj&quot;, &quot;DJ&quot;, &quot;Dj&quot;, _
         &quot;D&quot; &amp; &quot;zz&quot;, &quot;LJ&quot;, &quot;NJ&quot;, _
         &quot;D&quot; &amp; &quot;zz&quot;, &quot;Lj&quot;, &quot;Nj&quot;, &quot;Dj&quot;, &quot;A&quot;, _
         &quot;B&quot;, &quot;V&quot;, &quot;G&quot;, &quot;D&quot;, &quot;E&quot;, _
@@ -301,7 +309,7 @@ Function Init()
     &apos; Tanjug (novinarska) latinica mala
     ReDim tmpStr as Variant
     tmpStr() = Array(_
-        &quot;dj&quot;, _
+        &quot;dj&quot;, &quot;dj&quot;, _
         &quot;d&quot; &amp; &quot;zz&quot;, &quot;lj&quot;, &quot;nj&quot;, &quot;dj&quot;, &quot;a&quot;, _
         &quot;b&quot;, &quot;v&quot;, &quot;g&quot;, &quot;d&quot;, &quot;e&quot;, _
         &quot;zz&quot;, &quot;z&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, _
@@ -317,31 +325,31 @@ Function Init()
     ldbCStr() = Array(&quot;D&quot; &amp; Chr$(381), &quot;DJ&quot;, &quot;LJ&quot;, &quot;NJ&quot;)
     smgStr() = Array(&quot;A&quot;, &quot;E&quot;, &quot;I&quot;, &quot;O&quot;, &quot;U&quot;)
 
-	&apos; Dj/dj kombinacije koje treba da pređu u Đ/đ
-	&apos; + ođe/ođu ~ odje/odju
-	djStrIZ() = Array(_
-	    &quot;DJ&quot;, &quot;Dj&quot;, &quot;dj&quot;, _
-	    &quot;o&quot; &amp; Chr$(273) &amp; &quot;e&quot;, _
-	    &quot;O&quot; &amp; Chr$(273) &amp; &quot;e&quot;, _
-	    &quot;O&quot; &amp; Chr$(272) &amp; &quot;E&quot;, _
-	    &quot;o&quot; &amp; Chr$(273) &amp; &quot;u&quot;, _
-	    &quot;O&quot; &amp; Chr$(273) &amp; &quot;u&quot;, _
-	    &quot;O&quot; &amp; Chr$(272) &amp; &quot;U&quot;, _
-	    &quot;a&quot; &amp; Chr$(273) &amp; &quot;a&quot; &amp; Chr$(269), _
-	    &quot;A&quot; &amp; Chr$(273) &amp; &quot;a&quot; &amp; Chr$(269), _
-	    &quot;A&quot; &amp; Chr$(272) &amp; &quot;A&quot; &amp; Chr$(268) _
-	)
-	djStrU() = Array(_
-	    Chr$(272), Chr$(272), Chr$(273), _
-	    &quot;odje&quot;, _
-	    &quot;Odje&quot;, _
-	    &quot;ODJE&quot;, _
-	    &quot;odju&quot;, _
-	    &quot;Odju&quot;, _
-	    &quot;ODJU&quot;, _
-  	    &quot;adja&quot; &amp; Chr$(269), _
-	    &quot;Adja&quot; &amp; Chr$(269), _
-	    &quot;ADJA&quot; &amp; Chr$(268)_
+    &apos; Dj/dj kombinacije koje treba da pređu u Đ/đ
+    &apos; + ođe/ođu ~ odje/odju
+    djStrIZ() = Array(_
+        &quot;DJ&quot;, &quot;Dj&quot;, &quot;dj&quot;, _
+        &quot;o&quot; &amp; Chr$(273) &amp; &quot;e&quot;, _
+        &quot;O&quot; &amp; Chr$(273) &amp; &quot;e&quot;, _
+        &quot;O&quot; &amp; Chr$(272) &amp; &quot;E&quot;, _
+        &quot;o&quot; &amp; Chr$(273) &amp; &quot;u&quot;, _
+        &quot;O&quot; &amp; Chr$(273) &amp; &quot;u&quot;, _
+        &quot;O&quot; &amp; Chr$(272) &amp; &quot;U&quot;, _
+        &quot;a&quot; &amp; Chr$(273) &amp; &quot;a&quot; &amp; Chr$(269), _
+        &quot;A&quot; &amp; Chr$(273) &amp; &quot;a&quot; &amp; Chr$(269), _
+        &quot;A&quot; &amp; Chr$(272) &amp; &quot;A&quot; &amp; Chr$(268) _
+    )
+    djStrU() = Array(_
+        Chr$(272), Chr$(272), Chr$(273), _
+        &quot;odje&quot;, _
+        &quot;Odje&quot;, _
+        &quot;ODJE&quot;, _
+        &quot;odju&quot;, _
+        &quot;Odju&quot;, _
+        &quot;ODJU&quot;, _
+        &quot;adja&quot; &amp; Chr$(269), _
+        &quot;Adja&quot; &amp; Chr$(269), _
+        &quot;ADJA&quot; &amp; Chr$(268)_
     )
 
     &apos; Pražnjenje privremenog niza tmpStr
@@ -350,7 +358,7 @@ End Function
 
 &apos; Rutina za pokretanje OOoTranslit dijaloga
 Sub RunTranslit
-  OpenDialog()
+    OpenDialog()
 End Sub
 
 &apos; Rutina za prikaz i zatvaranje OOoTranslit dijaloga
@@ -362,7 +370,7 @@ Sub OpenDialog
     Dim ovaGodina As Integer
     
     &apos; Mogla bi verzija da se uzima iz description.xml datoteke?
-    version = &quot;24.02.0&quot;
+    version = &quot;24.02.1&quot;
 
     &apos; Učitavanje biblioteke za upravljanje dijalozima u promenljivu oDlg
     DialogLibraries.LoadLibrary(&quot;oootranslit&quot;)
@@ -478,16 +486,16 @@ Sub doTranslit()
     rpl(oDlg.Model.chkSelected.State &lt;&gt; 1, trans_u)
 
     &apos; sredi „nj“ parove
-	If trans_u = 1 Then
-    	rplNJ(True)
-    	rplStrano(True)
+    If trans_u = 1 Then
+        rplNJ(True)
+        rplStrano(True)
     End If
     
     &apos; Popravka novinarskog u ćirilicu (za ceo tekst)
     If trans_iz = 5 AND trans_u = 1 Then
-        &apos;                       Sh                                     sh                                      Ch                                      ch
+        &apos;               Sh                       sh                       Ch                       ch
         strIZ() = Array(Chr$(1057) &amp; Chr$(1089), Chr$(1089) &amp; Chr$(1089), Chr$(1062) &amp; Chr$(1093), Chr$(1094) &amp; Chr$(1093))
-        strU()  = Array(Chr$(1064),                       Chr$(1096),                       Chr$(1063),                       Chr$(1095))
+        strU()  = Array(Chr$(1064),              Chr$(1096),              Chr$(1063),              Chr$(1095))
         rpl(True, trans_u)
     End If
 
@@ -573,9 +581,9 @@ Sub rplComponent(oComponent as Object, ciljni as Integer)
         Next n
         &apos; ispravka DJ i Dj u Đ, te dj u đ
         For n = LBound(djStrIZ()) To UBound(djStrIZ())
-        	oRpl.SearchString = djStrIZ(n)
-        	oRpl.ReplaceString = djStrU(n)
-        	oComponent.ReplaceAll(oRpl)
+            oRpl.SearchString = djStrIZ(n)
+            oRpl.ReplaceString = djStrU(n)
+            oComponent.ReplaceAll(oRpl)
         Next n
     Else
         &apos; Ispravka pogrešno preslovljenog DZ u dva ćirilična slova - DZ
@@ -585,38 +593,57 @@ Sub rplComponent(oComponent as Object, ciljni as Integer)
     End If
 
     &apos; TODO: Sredi dupla slova iz novinarske latinice u Ćirilicu
-    &apos; If ciljni = 1 Then
-    &apos; ...
-    &apos; End If
 End Sub
 
 Function rplString(sText as String, ciljni As Integer) as String
     Dim sLetter As String, dLetter As String, rText as String
     Dim lIndex As Long
+    Dim isCrLf As Boolean
 
     lIndex = 1
     Do While lIndex &lt;= Len(sText)
         sLetter = Mid(sText, lIndex, 1)
+        isCrLf = False
 
         Select Case sLetter
+            &apos; Ako je znak Carriage Return, proveri da li sledi Line Feed (CRLF) kako bi ga preskočili u preslovljavanju
+            Case Chr$(13)
+                dLetter = Mid(sText, lIndex, 2) &apos; Uzmi dva znaka od trenutne pozicije u tekstu
+                If dLetter &lt;&gt; Chr$(13) &amp; Chr$(10) Then &apos; ako nije CRLF resetuj dLetter
+                    dLetter = &quot;&quot;
+                End If
+                &apos; Postavi info da je trenutni znak CR ili CRLF
+                isCrLf = True
+
+            &apos; lj, nj
             Case &quot;l&quot;, &quot;n&quot;, &quot;d&quot;, &quot;L&quot;, &quot;N&quot;, &quot;D&quot;
                 dLetter = Mid(sText, lIndex, 2)
-                if dLetter=strIZ(0) or dLetter=&quot;lj&quot; or dLetter=&quot;nj&quot; or dLetter=strIZ(30) or dLetter=&quot;LJ&quot; or dLetter=&quot;NJ&quot; or dLetter=strIZ(33) or dLetter=&quot;Lj&quot; or dLetter=&quot;Nj&quot; Then          
+                if dLetter=strIZ(0) or dLetter=&quot;lj&quot; or dLetter=&quot;nj&quot; or dLetter=strIZ(30) or dLetter=&quot;LJ&quot; or dLetter=&quot;NJ&quot; or dLetter=strIZ(33) or dLetter=&quot;Lj&quot; or dLetter=&quot;Nj&quot; Then
                     sLetter = dLetter
                 Else
                     dLetter = &quot;&quot;
                 End If
         End Select
 
-        For n = LBound(strIZ()) To UBound(strIZ())
-            If strIZ(n) = sLetter Then
-                sLetter = strU(n)
-                n = UBound(strIZ())
-            End If
-        Next n
+        &apos; Ako trenutni znak nije CRLF
+        &apos; uzmi poziciju slova u nizu strIZ()
+        &apos; i dodeli slovo sa iste pozicije u nizu strU()
+        If isCrLf = False Then
+            For n = LBound(strIZ()) To UBound(strIZ())
+                If strIZ(n) = sLetter Then
+                    sLetter = strU(n)
+                    n = UBound(strIZ())
+                End If
+            Next n
+        End If
 
+        &apos; Dodaj preslovljeni znak na kraj preslovljenog teksta
         rText = rText + sLetter
+        
+        &apos; Povećaj brojač za jednu poziciju
         lIndex = lIndex + 1
+        
+        &apos; Ako je dLetter dužine dva karaktera, povećaj brojač za još jednu poziciju
         If Len(dLetter) = 2 then
             dLetter = &quot;&quot;
             lIndex = lIndex + 1
@@ -646,50 +673,49 @@ Sub rplNJ(sve As Boolean)
     oRpl.SearchCaseSensitive = True &apos; Veličina slova je bitna
 
     &apos; Sredi probleme sa parom „DJ“, „DŽ“ i „NJ“
-    &apos; конјукција ~ конјункција
-	strIZ() = Array(_
-		&quot;ође&quot;,     &quot;ОЂЕ&quot;, &quot;Ође&quot;, _
-		&quot;ођу&quot;,      &quot;ОЂУ&quot;, &quot;Ођу&quot;, _
-		&quot;ађач&quot;,     &quot;АЂАЧ&quot;, &quot;Ађач&quot;, _
-		&quot;ањезичн&quot;,  &quot;АЊЕЗИЧН&quot;, _
-		&quot;њекциј&quot;,   &quot;ЊЕКЦИЈ&quot;, _
-		&quot;тањуг&quot;,    &quot;ТАЊУГ&quot;, &quot;Тањуг&quot;, _
-		&quot;оњугациј&quot;, &quot;ОЊУГАЦИЈ&quot;, _
-		&quot;њукти&quot;,    &quot;ЊУКТИ&quot;, _
-		&quot;њукциј&quot;,   &quot;ЊУКЦИЈ&quot;, _
-		&quot;оњукциј&quot;,  &quot;ОЊУКЦИЈ&quot;, _
-		&quot;оњунк&quot;,    &quot;ОЊУНК&quot;, _
-		&quot;наџе&quot;,     &quot;НАЏЕ&quot;, _
-		&quot;оџвака&quot;,   &quot;ОЏВАКА&quot;, &quot;Оџвака&quot;, _
-		&quot;аџиве&quot;,    &quot;АЏИВЕ&quot;, _
-		&quot;оџиве&quot;,    &quot;ОЏИВЕ&quot;, _
-		&quot;џубори&quot;,   &quot;ЏУБОРИ&quot;, _
-		&quot;оџури&quot;,    &quot;ОЏУРИ&quot; _
-	)
+    strIZ() = Array(_
+        &quot;ође&quot;,      &quot;ОЂЕ&quot;, &quot;Ође&quot;, _
+        &quot;ођу&quot;,      &quot;ОЂУ&quot;, &quot;Ођу&quot;, _
+        &quot;ађач&quot;,     &quot;АЂАЧ&quot;, &quot;Ађач&quot;, _
+        &quot;ањезичн&quot;,  &quot;АЊЕЗИЧН&quot;, _
+        &quot;њекциј&quot;,   &quot;ЊЕКЦИЈ&quot;, _
+        &quot;тањуг&quot;,    &quot;ТАЊУГ&quot;, &quot;Тањуг&quot;, _
+        &quot;оњугациј&quot;, &quot;ОЊУГАЦИЈ&quot;, _
+        &quot;њукти&quot;,    &quot;ЊУКТИ&quot;, _
+        &quot;њукциј&quot;,   &quot;ЊУКЦИЈ&quot;, _
+        &quot;оњукциј&quot;,  &quot;ОЊУКЦИЈ&quot;, _
+        &quot;оњунк&quot;,    &quot;ОЊУНК&quot;, _
+        &quot;наџе&quot;,     &quot;НАЏЕ&quot;, _
+        &quot;оџвака&quot;,   &quot;ОЏВАКА&quot;, &quot;Оџвака&quot;, _
+        &quot;аџив&quot;,     &quot;АЏИВ&quot;, _
+        &quot;оџив&quot;,     &quot;ОЏИВ&quot;, _
+        &quot;џубори&quot;,   &quot;ЏУБОРИ&quot;, _
+        &quot;оџури&quot;,    &quot;ОЏУРИ&quot; _
+    )
 
-	strU() = Array(_
-		&quot;одје&quot;,     &quot;ОДЈЕ&quot;, &quot;Одје&quot;, _
-		&quot;одју&quot;,      &quot;ОДЈУ&quot;, &quot;Одју&quot;, _
-		&quot;адјач&quot;,     &quot;АДЈАЧ&quot;, &quot;Адјач&quot;, _
-		&quot;анјезичн&quot;,  &quot;АНЈЕЗИЧН&quot;, _
-		&quot;нјекциј&quot;,   &quot;НЈЕКЦИЈ&quot;, _
-		&quot;танјуг&quot;,    &quot;ТАНЈУГ&quot;, &quot;Танјуг&quot;, _
-		&quot;онјугациј&quot;, &quot;ОНЈУГАЦИЈ&quot;, _
-		&quot;нјукти&quot;,    &quot;НЈУКТИ&quot;, _
-		&quot;нјукциј&quot;,   &quot;НЈУКЦИЈ&quot;, _
-		&quot;онјукциј&quot;,  &quot;ОНЈУКЦИЈ&quot;, _
-		&quot;онјунк&quot;,    &quot;ОНЈУНК&quot;, _
-		&quot;надже&quot;,     &quot;НАДЖЕ&quot;, _
-		&quot;оджвака&quot;,   &quot;ОДЖВАКА&quot;, &quot;Оджвака&quot;, _
-		&quot;адживе&quot;,    &quot;АДЖИВЕ&quot;, _
-		&quot;одживе&quot;,    &quot;ОДЖИВЕ&quot;, _
-		&quot;джубори&quot;,   &quot;ДЖУБОРИ&quot;, _
-		&quot;оджури&quot;,    &quot;ОДЖУРИ&quot; _
-	)
+    strU() = Array(_
+        &quot;одје&quot;,      &quot;ОДЈЕ&quot;, &quot;Одје&quot;, _
+        &quot;одју&quot;,      &quot;ОДЈУ&quot;, &quot;Одју&quot;, _
+        &quot;адјач&quot;,     &quot;АДЈАЧ&quot;, &quot;Адјач&quot;, _
+        &quot;анјезичн&quot;,  &quot;АНЈЕЗИЧН&quot;, _
+        &quot;нјекциј&quot;,   &quot;НЈЕКЦИЈ&quot;, _
+        &quot;танјуг&quot;,    &quot;ТАНЈУГ&quot;, &quot;Танјуг&quot;, _
+        &quot;онјугациј&quot;, &quot;ОНЈУГАЦИЈ&quot;, _
+        &quot;нјукти&quot;,    &quot;НЈУКТИ&quot;, _
+        &quot;нјукциј&quot;,   &quot;НЈУКЦИЈ&quot;, _
+        &quot;онјукциј&quot;,  &quot;ОНЈУКЦИЈ&quot;, _
+        &quot;онјунк&quot;,    &quot;ОНЈУНК&quot;, _
+        &quot;надже&quot;,     &quot;НАДЖЕ&quot;, _
+        &quot;оджвака&quot;,   &quot;ОДЖВАКА&quot;, &quot;Оджвака&quot;, _
+        &quot;аджив&quot;,     &quot;АДЖИВ&quot;, _
+        &quot;оджив&quot;,     &quot;ОДЖИВ&quot;, _
+        &quot;джубори&quot;,   &quot;ДЖУБОРИ&quot;, _
+        &quot;оджури&quot;,    &quot;ОДЖУРИ&quot; _
+    )
 
     For n = LBound(strIZ()) To UBound (strIZ())
-    	str_iz = strIZ(n)
-    	str_u = strU(n)
+        str_iz = strIZ(n)
+        str_u = strU(n)
         oRpl.SearchString = strIZ(n)
         oRpl.ReplaceString = strU(n)
         oComponent.ReplaceAll(oRpl)
@@ -721,16 +747,16 @@ Sub rplStrano(sve As Boolean)
     &apos; 1) latinici
     &apos; 2) ćirilici
     strIZ() = Array(_
-    	&quot;Апацхе&quot;, &quot;ОпенОффице.орг&quot;, &quot;ОпенОффице&quot;, &quot;ЛибреОффице&quot;, _
-    	&quot;WордПресс&quot;, &quot;ФацеБоок&quot;, &quot;Тwиттер&quot;, _
-    	_
-    	&quot;Линуx&quot;, &quot;Wиндоwс&quot;, &quot;Мицрософт&quot; _
+        &quot;Апацхе&quot;, &quot;ОпенОффице.орг&quot;, &quot;ОпенОффице&quot;, &quot;ЛибреОффице&quot;, _
+        &quot;WордПресс&quot;, &quot;ФацеБоок&quot;, &quot;Тwиттер&quot;, _
+        _
+        &quot;Линуx&quot;, &quot;Wиндоwс&quot;, &quot;Мицрософт&quot; _
     )
     strU()  = Array(_
-    	&quot;Apache&quot;, &quot;OpenOffice.org&quot;, &quot;OpenOffice&quot;, &quot;LibreOffice&quot;, _
-    	&quot;WordPress&quot;, &quot;FaceBook&quot;, &quot;Twitter&quot;, _
-    	_
-    	&quot;Линукс&quot;, &quot;Windows&quot;, &quot;Microsoft&quot; _
+        &quot;Apache&quot;, &quot;OpenOffice.org&quot;, &quot;OpenOffice&quot;, &quot;LibreOffice&quot;, _
+        &quot;WordPress&quot;, &quot;FaceBook&quot;, &quot;Twitter&quot;, _
+        _
+        &quot;Линукс&quot;, &quot;Windows&quot;, &quot;Microsoft&quot; _
     )
 
     For n = LBound(strIZ()) To UBound (strIZ())

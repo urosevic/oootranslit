@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <description xmlns="http://openoffice.org/extensions/description/2006"
+    xmlns:d="http://openoffice.org/extensions/description/2006"
+    xmlns:l="http://libreoffice.org/extensions/description/2011"
     xmlns:xlink="http://www.w3.org/1999/xlink">
 
   <identifier value="urosevic.oootranslit" />
 
-  <version value="24.02.0" />
+  <platform value="all" />
 
-  <dependencies>
-    <OpenOffice.org-minimal-version value="3.1.0" name="OpenOffice.org 3.1.0"/>
-  </dependencies>
+  <version value="24.02.1" />
 
   <registration>
-    <simple-license accept-by="user" default-license-id="sr_RS" suppress-on-update="false" >
+    <simple-license accept-by="user" default-license-id="sr" suppress-on-update="false" >
       <license-text xlink:href="registration/license-en.txt" lang="en" license-id="en" />
       <license-text xlink:href="registration/license-sr.txt" lang="sr" license-id="sr" />
       <license-text xlink:href="registration/license-sr_RS.txt" lang="sr_RS" license-id="sr_RS" />
     </simple-license>
   </registration>
 
+  <dependencies>
+    <OpenOffice.org-minimal-version value="4.1" name="OpenOffice.org 4.1"/>
+    <l:LibreOffice-minimal-version value="6.4" d:name="LibreOffice.org 6.4 or higher" />
+  </dependencies>
+
+  <update-information>
+    <src xlink:href="https://urosevic.net/oootranslit/OOoTranslit.update.xml" />
+  </update-information>
+
   <publisher>
     <name xlink:href="https://www.techwebux.com" lang="en">TechWebUX</name>
     <name xlink:href="https://www.techwebux.rs" lang="sr">TechWebUX</name>
     <name xlink:href="https://www.techwebux.rs" lang="sr_RS">TechWebUX</name>
   </publisher>
+
+  <release-notes>
+    <src xlink:href="https://urosevic.net/oootranslit/release-notes/ooot24021.txt" lang="sr" />
+  </release-notes>
 
   <display-name>
     <name>OOoTranslit</name>
@@ -41,14 +54,5 @@
     <src xlink:href="pkg-desc/desc-sr.txt" lang="sr" />
     <src xlink:href="pkg-desc/desc-sr_RS.txt" lang="sr_RS" />
   </extension-description>
-
-  <update-information>
-    <src xlink:href="https://urosevic.net/oootranslit/OOoTranslit.update.xml" />
-  </update-information>
-
-  <release-notes>
-    <src xlink:href="https://urosevic.net/oootranslit/release-notes/ooоt24020.txt" lang="sr" />
-  </release-notes>
-
 
 </description>

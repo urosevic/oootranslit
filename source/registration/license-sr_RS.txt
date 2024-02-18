@@ -1,5 +1,5 @@
     OOoTranslit - preslovljavanje između ćiriličnog i latiničnog teksta
-    Autorska prava: Copyleft (ɔ) 2005-2024 Aleksandar Urošević, TechWebUX doo Kragujevac
+    Copyleft (ɔ) 2005-2024 Aleksandar Urošević, TechWebUX doo Kragujevac
 
     Ovaj program je slobodni softver. Možete ga raspodeliti i/ili
     menjati pod odredbama GNU-ove opšte javne licence koju je objavila

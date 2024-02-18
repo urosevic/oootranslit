@@ -1,11 +1,11 @@
-OOoTranslit 24.02.0
+OOoTranslit 24.02.1
 
-Izdanje 24.02.0 unapređuje preslovljavanje iz latinice u ćirilicu.
-Promenjen je naziv novinarskog rasporeda u Tanjug.
+Izdanje 24.02.1 ispravlja problem sa automatskom nadogradnjom proširenja
+direktno iz Upravnika proširenjima
 
 Ukoliko uočite greške u radu ovog dodatka, molim Vas da ih prijavite
 na forumu "Otvoreni dokument" na adresi http://otvorenidokument.com
-ili preko formulara za kontakt na adresi https://urosevic.net/kontakt
+ili preko formulara za kontakt na adresi https://urosevic.net/oootranslit/kontakt
 
 Saznajte više o dodatku na:
 https://urosevic.net/oootranslit
