@@ -21,7 +21,7 @@ version=$(grep -oP '(?<=<version value=")[^"]+' description.xml)
 zip_filename="OOoTranslit-$version.oxt"
 
 # Zip all files in the source directory to a file named OOoTranslit-VERSION.oxt
-zip -9 -Z bzip2 -X -o -r "../$dist_dir/$zip_filename" . && \
+zip -9 -X -o -r "../$dist_dir/$zip_filename" . && \
 echo "--> Zip file created: $zip_filename" && \
 cd "../$dist_dir" && \
 # Create an MD5 hash file for the compressed zip archive
