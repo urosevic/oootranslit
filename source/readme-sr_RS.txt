@@ -1,11 +1,12 @@
-OOoTranslit 24.02.1
+OOoTranslit 24.03.0
 
-Izdanje 24.02.1 ispravlja problem sa automatskom nadogradnjom proširenja
-direktno iz Upravnika proširenjima
+Izdanje 24.03.0 ispravlja problem sa preslovljavanjem digrafa
+poput "takođe" i "deadjektiv", donosi podršku za rimske brojeve
+u ćiriličnom tekstu
 
 Ukoliko uočite greške u radu ovog dodatka, molim Vas da ih prijavite
 na forumu "Otvoreni dokument" na adresi http://otvorenidokument.com
-ili preko formulara za kontakt na adresi https://urosevic.net/oootranslit/kontakt
+ili preko formulara na adresi https://urosevic.net/oootranslit/kontakt
 
 Saznajte više o dodatku na:
 https://urosevic.net/oootranslit

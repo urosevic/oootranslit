@@ -8,7 +8,7 @@
 
   <platform value="all" />
 
-  <version value="24.02.1" />
+  <version value="24.03.0" />
 
   <registration>
     <simple-license accept-by="user" default-license-id="sr" suppress-on-update="false" >
