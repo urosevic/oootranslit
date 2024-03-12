@@ -20,5 +20,4 @@
 
 ## Снимци екрана
 
-![ООоТранслит 24.02.1](images/OOoTranslit-24021-win11.png?raw=true "ООоТранслит 24.02.1 на Windows 11")
-![ООоТранслит 24.02.0](images/OOoTranslit-24020-win10.png?raw=true "ООоТранслит 24.02.0 на Windows 10")
+![ООоТранслит 24.03.0](images/OOoTranslit-24030-win10.png?raw=true "ООоТранслит 24.03.0 на Windows 10")
