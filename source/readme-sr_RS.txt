@@ -1,8 +1,8 @@
-OOoTranslit 24.03.0
+OOoTranslit 24.05.0
 
-Izdanje 24.03.0 ispravlja problem sa preslovljavanjem digrafa
-poput "takođe" i "deadjektiv", donosi podršku za rimske brojeve
-u ćiriličnom tekstu
+Izdanje 24.05.0 rešava problem preslovljavanja ijekavskog dijalekta,
+ne preslovljava latinično slovo "I" u latinicu tretirajući ga kao
+rimski broj, te rešava problem vidljive promene slova na ekranu.
 
 Ukoliko uočite greške u radu ovog dodatka, molim Vas da ih prijavite
 na forumu "Otvoreni dokument" na adresi http://otvorenidokument.com
