@@ -1,8 +1,6 @@
-OOoTranslit 24.05.0
+OOoTranslit 25.02.0
 
-Izdanje 24.05.0 rešava problem preslovljavanja ijekavskog dijalekta,
-ne preslovljava latinično slovo "I" u latinicu tretirajući ga kao
-rimski broj, te rešava problem vidljive promene slova na ekranu.
+Izdanje 25.02.0 rešava problem nemogu'eg preslovljavanja u Calc.
 
 Ukoliko uočite greške u radu ovog dodatka, molim Vas da ih prijavite
 na forumu "Otvoreni dokument" na adresi http://otvorenidokument.com

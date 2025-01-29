@@ -1,4 +1,4 @@
 OOoTranslit dodatak za dvosmerno preslovljavanje
 između srpskog ćiriličnog i latiničnog pisma.
 
-Copyleft (ɔ) 2005-2024 Aleksandar Urošević, TechWebUX doo Kragujevac
+Copyleft (ɔ) 2005-2025 Aleksandar Urošević, TechWebUX doo Kragujevac

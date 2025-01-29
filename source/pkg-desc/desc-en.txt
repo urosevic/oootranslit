@@ -1,4 +1,4 @@
 OOoTranslit add on to transliterate
 Serbian Cyrillic to Latin script, and vice versa.
 
-Copyleft (ɔ) 2005-2024 Aleksandar Urošević, TechWebUX doo Kragujevac
+Copyleft (ɔ) 2005-2025 Aleksandar Urošević, TechWebUX doo Kragujevac

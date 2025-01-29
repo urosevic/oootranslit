@@ -1,5 +1,5 @@
     OOoTranslit - transliterate Serbian Cyrillic to Latin script and vice versa
-    Copyleft (ɔ) 2005-2024 Aleksandar Urošević, TechWebUX doo Kragujevac
+    Copyleft (ɔ) 2005-2025 Aleksandar Urošević, TechWebUX doo Kragujevac
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

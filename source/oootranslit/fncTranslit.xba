@@ -5,13 +5,16 @@
 &apos; Naziv:     OOoTranslit (od OpenOffice.org Transliteration)
 &apos; Svrha:     Basic makro za dvosmerno preslovljavanje latinice u ćirilicu
 &apos;            u Writer i Calc programima kancelarijskih paketa LibreOffice i Apache OpenOffice
-&apos; Verzija:   24.05.0
+&apos; Verzija:   25.02.0
 &apos; Autor:     Aleksandar Urošević &lt;urke.kg@gmail.com&gt;
 &apos; Prilagači: Goran Rakić &lt;grakic@devbase.net&gt;
 &apos;            Branislav Jovanović &lt;fangorn@eunet.yu&gt;
 &apos; URL:       https://urosevic.net/oootranslit
 &apos;
 &apos; Dnevnik promena:
+&apos; 25.02.0 (28.02.2025) [urke]
+&apos; * marko: popravljeno nemoguće preslovljavanje u Calc programu
+&apos;
 &apos; 24.05.0 (12.05.2024) [urke]
 &apos; * makro: izuzeto preslovljavanje ćiriličnog &quot;И&quot; u rimski broj &quot;I&quot;
 &apos; * makro: uklonjeno preslovljavanje latiničnog &quot;dj&quot; u ćirilično &quot;ђ&quot; zbog ijekavskog narečja srpskog jezika
@@ -460,7 +463,7 @@ Sub OpenDialog
     Dim ovaGodina As Integer
 
     &apos; Mogla bi verzija da se uzima iz description.xml datoteke?
-    version = &quot;24.05.0&quot;
+    version = &quot;25.02.0&quot;
 
     &apos; Učitavanje biblioteke za upravljanje dijalozima u promenljivu oDlg
     DialogLibraries.LoadLibrary(&quot;oootranslit&quot;)
@@ -504,18 +507,18 @@ End Sub
 Sub oDlg_disposing(oEv)
 End Sub
 
-&apos; FUnkcija za definisanje Calc/Writer komponente
-Function oComponent(sve as Boolean)
+&apos; Funkcija za definisanje Calc/Writer komponente
+Function getComponent(sve as Boolean)
     &apos; Postavi komponentu za Calc drugačije od Writer komponente
     If ThisComponent.SupportsService(&quot;com.sun.star.sheet.SpreadsheetDocument&quot;) Then
         &apos; sve ili izbor
         If sve Then
-            oComponent = ThisComponent.getCurrentController.getActiveSheet
+            getComponent = ThisComponent.getCurrentController.getActiveSheet
         Else
-            oComponent = ThisComponent.getCurrentSelection
+            getComponent = ThisComponent.getCurrentSelection
         End If
     Else
-        oComponent = ThisComponent
+        getComponent = ThisComponent
     End If
 End Function
 
@@ -805,14 +808,20 @@ Function rplString(sText as String, ciljni As Integer) as String
 End Function
 
 Sub rplNJ(sve As Boolean)
+    Dim oComponent As Object  &apos; Explicit declaration for oComponent
     Dim oRpl as Object
     Dim str_iz, str_u As String
-
+	
     &apos; Dobavljamo odgovarajuću komponentu
-    oComponent = oComponent(sve)
+    oComponent = getComponent(sve)
     oRpl = oComponent.createReplaceDescriptor()
     oRpl.SearchCaseSensitive = True &apos; Veličina slova je bitna
-    &apos; oRpl.SearchAll = True
+    oRpl.SearchStyles = False &apos; Do not search in styles
+
+    &apos; Uključijemo pretragu u celom tekstu u okviru Writer dokumenta
+    If HasUnoInterfaces(oComponent, &quot;com.sun.star.text.TextDocument&quot;) Then
+        oRpl.SearchAll = True &apos; Omogući globalni Traži i Zameni u Writer-u
+    End If
 
     &apos; Popravljamo probleme sa dvoznakom „NJ“ i „DŽ“ unutar reči
     For n = LBound(digrafeCirIZ()) To UBound (digrafeCirIZ())
@@ -850,10 +859,11 @@ End Sub
 
 &apos; Ispravka delimično preslovljenih stranih fraza
 Sub rplStrano(sve As Boolean)
+	Dim oComponent As Object
     Dim oRpl as Object
 
     &apos; Dobavljamo odgovarajuću komponentu
-    oComponent = oComponent(sve)
+    oComponent = getComponent(sve)
     oRpl = oComponent.createReplaceDescriptor()
     oRpl.SearchCaseSensitive = True &apos; Veličina slova je bitna
 
@@ -886,12 +896,13 @@ End Sub
 
 &apos; Ispravka rimskih brojeva preslovljenih u ćirilicu
 Sub rplRimski(sve As Boolean)
+    Dim oComponent As Object
     Dim oRpl As Object
     Dim rimskiStrIz, rimskiStrU As Variant
     Dim tmpIz, tmpU As Variant
 
     &apos; Dobavljamo odgovarajuću komponentu
-    oComponent = oComponent(sve)
+    oComponent = getComponent(sve)
     oRpl = oComponent.createReplaceDescriptor()
     oRpl.SearchCaseSensitive = True &apos; Veličina slova je bitna
 
