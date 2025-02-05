@@ -5,15 +5,18 @@
 &apos; Naziv:     OOoTranslit (od OpenOffice.org Transliteration)
 &apos; Svrha:     Basic makro za dvosmerno preslovljavanje latinice u ćirilicu
 &apos;            u Writer i Calc programima kancelarijskih paketa LibreOffice i Apache OpenOffice
-&apos; Verzija:   25.02.0
+&apos; Verzija:   25.02.1
 &apos; Autor:     Aleksandar Urošević &lt;urke.kg@gmail.com&gt;
 &apos; Prilagači: Goran Rakić &lt;grakic@devbase.net&gt;
 &apos;            Branislav Jovanović &lt;fangorn@eunet.yu&gt;
 &apos; URL:       https://urosevic.net/oootranslit
 &apos;
 &apos; Dnevnik promena:
-&apos; 25.02.0 (28.02.2025) [urke]
-&apos; * marko: popravljeno nemoguće preslovljavanje u Calc programu
+&apos; 25.02.1 (05.02.2025) [urke]
+&apos; * paket: popravljena instalacija na OpenOffice.org 4.1.x
+&apos;
+&apos; 25.02.0 (28.01.2025) [urke]
+&apos; * makro: popravljeno nemoguće preslovljavanje u Calc programu
 &apos;
 &apos; 24.05.0 (12.05.2024) [urke]
 &apos; * makro: izuzeto preslovljavanje ćiriličnog &quot;И&quot; u rimski broj &quot;I&quot;
@@ -463,7 +466,7 @@ Sub OpenDialog
     Dim ovaGodina As Integer
 
     &apos; Mogla bi verzija da se uzima iz description.xml datoteke?
-    version = &quot;25.02.0&quot;
+    version = &quot;25.02.1&quot;
 
     &apos; Učitavanje biblioteke za upravljanje dijalozima u promenljivu oDlg
     DialogLibraries.LoadLibrary(&quot;oootranslit&quot;)

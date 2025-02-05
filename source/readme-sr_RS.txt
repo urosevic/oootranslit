@@ -1,6 +1,6 @@
-OOoTranslit 25.02.0
+OOoTranslit 25.02.1
 
-Izdanje 25.02.0 rešava problem nemogu'eg preslovljavanja u Calc.
+Izdanje 25.02.1 rešava problem instalacije na OpenOffice.org 4.1.x
 
 Ukoliko uočite greške u radu ovog dodatka, molim Vas da ih prijavite
 na forumu "Otvoreni dokument" na adresi http://otvorenidokument.com
